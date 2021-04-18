@@ -17,9 +17,9 @@ try {
                              rue VARCHAR(500) NOT NULL,
                              ville VARCHAR(500) NOT NULL,
                              code VARCHAR(500) NOT NULL,
-                             situation VARCHAR(500) NOT NULL,
-                             naissance DATE NOT NULL,
-                             sexe VARCHAR(500) NOT NULL,
+                             situation VARCHAR(500),
+                             naissance DATE,
+                             sexe VARCHAR(500),
                              password varchar(500) NOT NULL)";
 	$db->exec($sql);
 } catch (PDOEXCEPTION $e) {

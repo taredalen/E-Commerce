@@ -64,9 +64,12 @@ if(isset($_REQUEST['btn_login'])) {
 	<link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
+	<link href="css/scrollbar.css" rel="stylesheet" type="text/css"/>
+
 </head>
 
 <body>
+
 
 <div class="bg-color-sky-light">
 	<header class="header">
@@ -98,6 +101,9 @@ if(isset($_REQUEST['btn_login'])) {
 	</header>
 </div>
 
+
+<div class="scrollbar scrollbar-primary">
+	<div class="force-overflow">
 <div class="section-seperator">
 	<div class="content-md container">
 		<div class="row">
@@ -152,6 +158,8 @@ if(isset($_REQUEST['btn_login'])) {
 				</form>
 			</div>
 		</div>
+	</div>
+</div>
 	</div>
 </div>
 

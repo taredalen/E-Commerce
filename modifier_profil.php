@@ -30,10 +30,7 @@ if(isset($_SESSION['user_login'])) {
 $date = Datetime::createFromFormat('Y-m-d', $naissance);
 $date_format=$date->format('d-m-Y');
 
-if(isset($_POST['btn_save1']))
-{
-	echo '1';
-
+if(isset($_POST['btn_save1'])){
 	$nom	    = strip_tags($_POST['nom']);
 	$prenom		= strip_tags($_POST['prenom']);
 	$mail		= strip_tags($_POST['mail']);
@@ -41,9 +38,6 @@ if(isset($_POST['btn_save1']))
 	$rue	    = strip_tags($_POST['rue']);
 	$ville		= strip_tags($_POST['ville']);
 	$code		= strip_tags($_POST['code']);
-	$situation	= strip_tags($_POST['situation']);
-	$naissance	= strip_tags($_POST['naissance']);
-	$sexe		= strip_tags($_POST['sexe']);
 
 	$date = Datetime::createFromFormat('d-m-Y', $naissance);
 
@@ -113,44 +107,64 @@ if(isset($_POST['btn_save1']))
 	}
 }
 
-else if(isset($_POST['btn_save2'])) //button name "btn_register"
+if(isset($_POST['btn_save2']))
+{
+	$situation	= strip_tags($_POST['situation']);
+	$naissance	= strip_tags($_POST['naissance']);
+	$sexe		= strip_tags($_POST['sexe']);
+
+	try {
+		if(!isset($errorMsg3)) {
+			$date = Datetime::createFromFormat('Y-m-d', $naissance);
+			$date_format=$date->format('d-m-Y');
+
+			$insert_stmt=$db->prepare("UPDATE Client SET situation=:situation,naissance=:naissance,sexe=:sexe WHERE  id=:id");//sql insert query
+
+			if($insert_stmt->execute(array(':situation' =>$situation, ':naissance' =>$date_format, ':sexe' =>$sexe))){
+				$registerMsg3="Les informations sont modifiées avec succès";
+			}
+		}
+	}
+	catch(PDOException $e) {}
+}
+
+if(isset($_POST['btn_save3']))
 {
 	echo '2';
-	$password	= strip_tags($_POST['password']);
-	$password2	= strip_tags($_POST['password2']);
+	$old_password	= strip_tags($_POST['old_password']);
+	$new_password	= strip_tags($_POST['new_password']);
+	$password	    = strip_tags($_POST['password']);
 
 	if(strlen($password) < 8){
-		$errorMsg[] = "Mot de passe doit contenir au moins 8 caractères";
+		$errorMsg3[] = "Mot de passe doit contenir au moins 8 caractères";
 	}
 	else if(!preg_match("/^[A-Z][a-zA-Z0-9]*[a-z]$/", $password)){
-		$errorMsg[] = "Format de mot de passe est incorrect!";
+		$errorMsg3[] = "Format de mot de passe est incorrect!";
 	}
-	else if($password2 != $password){
-		$errorMsg[] = "Confirmation du mot de passe a échoué. Verifiez que vous avez entré le même mot de passe!";
+	else if($new_password != $password){
+		$errorMsg3[] = "Confirmation du mot de passe a échoué. Verifiez que vous avez entré le même mot de passe!";
 	}
 
 	else {
 		try {
-			if(!isset($errorMsg)) {
+			if(!isset($errorMsg3)) {
+
 				//$new_password = password_hash($password, PASSWORD_DEFAULT); //encrypt password using password_hash()
 
-				$insert_stmt=$db->prepare("UPDATE Client SET password=:password");		//sql insert query
+				$insert_stmt=$db->prepare("UPDATE Client SET password = :password WHERE  id=:id");//sql insert query
 
-				if($insert_stmt->execute(array(':password' 	=>$password))){
-					$registerMsg="Le mot de passe modifié avec succès.";
+				if($insert_stmt->execute(array(':password' 	=>$password, ":id" =>$id))){
+					$registerMsg3="Le mot de passe modifié avec succès";
 				}
 			}
 		}
-		catch(PDOException $e) {
-			echo $e;
-			echo $e->getMessage();
-		}
+		catch(PDOException $e) {}
 	}
 }
-
 ?>
 
 
+<!--=========== HTML ============-->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -159,10 +173,11 @@ else if(isset($_POST['btn_save2'])) //button name "btn_register"
 	<link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
+	<link href="css/layout.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
-<!--=========== HEADER ============-->
+<!-------------- HEADER -------------->
 <header class="header">
 	<div class="bg-color-sky-light">
 		<div class="section-seperator">
@@ -200,9 +215,9 @@ else if(isset($_POST['btn_save2'])) //button name "btn_register"
 		</div>
 	</div>
 </header>
+<!------------ END HEADER ------------>
 
-<!--========== END HEADER ==========-->
-
+<!---------- INFO GENERALES ---------->
 <div class="section-seperator">
 	<div class="content-md container">
 		<div class="row margin-b-40">
@@ -269,6 +284,44 @@ else if(isset($_POST['btn_save2'])) //button name "btn_register"
 							<input type="text" class="form-control" id="code" name="code" minlength="5" maxlength="5" value='<?php echo $code; ?>'>
 						</div>
 					</div>
+					<button type="submit" name="btn_save1" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Enregistrer</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!--====== FIN INFO GENERALES ======-->
+
+<!---------- INFO COMPLEMT ------------>
+<div class="section-seperator">
+	<div class="content-md container">
+		<div class="row margin-b-40">
+			<div class="col-sm-6">
+				<h2>Informations complémentaires</h2>
+				<p>Ces données ne sont pas obligatoires, mais vous pouvez les modifier si vous le souhaitez.</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="container">
+				<?php
+				if(isset($errorMsg2)) {
+					foreach($errorMsg2 as $error) {
+						?>
+						<div class="alert alert-danger">
+							<strong>Erreur ! <?php echo $error; ?></strong>
+						</div>
+						<?php
+					}
+				}
+				if(isset($registerMsg2)) {
+					?>
+					<div class="alert alert-success">
+						<strong><?php echo $registerMsg2; ?></strong>
+					</div>
+					<?php
+				}
+				?>
+				<form method="post" action="modifier_profil.php">
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label for="naissance" class="text-info" style="color: #19b9cc">Date de naissance</label>
@@ -279,34 +332,36 @@ else if(isset($_POST['btn_save2'])) //button name "btn_register"
 						</div>
 						<div class="form-group col-md-4">
 							<label for="situation" class="text-info" style="color: #19b9cc">Situation Familiale </label>
-							<select class="form-control" name="situation" id="situation"  value='<?php echo $situation; ?>'>
-								<option value="autre">Autre</option>
-								<option value="célibataire">Célibataire</option>
-								<option value="marié">Marié(e)</option>
-								<option value="pacsé">Pacsé(e)</option>
-								<option value="divorcé">Divorcé(e)</option>
-								<option value="séparé">Séparé(e)</option>
-								<option value="veuf">Veuf(ve)</option>
+							<select class="form-control" name="situation" id="situation">
+								<option value= <?php echo $situation; ?>><?php echo $situation; ?></option>
+								<option value="Célibataire">Célibataire</option>
+								<option value="Marié(e)">Marié(e)</option>
+								<option value="Pacsé(e)" >Pacsé(e)</option>
+								<option value="Divorcé(e)">Divorcé(e)</option>
+								<option value="Séparé(e)">Séparé(e)</option>
+								<option value="Veuf(ve)">Veuf(ve)</option>
+								<option value="Autre">Autre</option>
 							</select>
 						</div>
 						<div class="form-group col-md-2">
 							<label for="sexe" class="text-info" style="color: #19b9cc">Sexe</label>
 							<select class="form-control" name="sexe" id="sexe">
-								<option value="autre"><?php echo $sexe; ?></option>
-								<option value="autre">Autre</option>
-								<option value="homme">Homme</option>
-								<option value="femme">Femme</option>
+								<option value="<?php echo $sexe; ?>"><?php echo $sexe; ?></option>
+								<option value="Autre">Autre</option>
+								<option value="Homme">Homme</option>
+								<option value="Femme">Femme</option>
 							</select>
 						</div>
 					</div>
-					<button type="submit" name="btn_save1" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Enregistrer</button>
+					<button type="submit" name="btn_save2" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Enregistrer</button>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
+<!-------- FIN INFO COMPLEMT ---------->
 
-
+<!---------- MOT DE PASSE ------------>
 <div class="section-seperator">
 	<div class="content-md container">
 		<div class="row margin-b-40">
@@ -318,8 +373,8 @@ else if(isset($_POST['btn_save2'])) //button name "btn_register"
 		<div class="row">
 			<div class="container">
 				<?php
-				if(isset($errorMsg)) {
-					foreach($errorMsg as $error) {
+				if(isset($errorMsg3)) {
+					foreach($errorMsg3 as $error) {
 						?>
 						<div class="alert alert-danger">
 							<strong>Erreur ! <?php echo $error; ?></strong>
@@ -327,10 +382,10 @@ else if(isset($_POST['btn_save2'])) //button name "btn_register"
 						<?php
 					}
 				}
-				if(isset($registerMsg)) {
+				if(isset($registerMsg3)) {
 					?>
 					<div class="alert alert-success">
-						<strong><?php echo $registerMsg; ?></strong>
+						<strong><?php echo $registerMsg3; ?></strong>
 					</div>
 					<?php
 				}
@@ -339,24 +394,26 @@ else if(isset($_POST['btn_save2'])) //button name "btn_register"
 					<div class="row">
 						<div class="form-group col-md-4">
 							<label for="password" class="text-info" style="color: #19b9cc">Ancien mot de Passe</label>
-							<input type="password" class="form-control" id="password" name="password" minlength="8" aria-describedby="passwordHelpBlock">
+							<input type="password" class="form-control" id="password" name="old_password" minlength="8" aria-describedby="passwordHelpBlock">
 						</div>
 						<div class="form-group col-md-4">
 							<label for="password2" class="text-info" style="color: #19b9cc">Nouveau mot de passe</label>
-							<input type="password" class="form-control" id="password2" name="password2">
+							<input type="password" class="form-control" id="password2" name="new_password">
 						</div>
 						<div class="form-group col-md-4">
 							<label for="password2" class="text-info" style="color: #19b9cc">Confirmation</label>
-							<input type="password" class="form-control" id="password2" name="password2">
+							<input type="password" class="form-control" id="password2" name="password">
 						</div>
 					</div>
-					<button type="submit" name="btn_save2" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Enregistrer</button>
+					<button type="submit" name="btn_save3" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Enregistrer</button>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
-<!--=========== FOOTER ============-->
+<!-------- FIN MOT DE PASSE ---------->
+
+<!------------- FOOTER --------------->
 <div class="bg-color-sky-light">
 	<footer class="footer">
 		<div class="content container">

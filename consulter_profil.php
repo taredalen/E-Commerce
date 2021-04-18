@@ -36,6 +36,7 @@ if(isset($_SESSION['user_login'])) {
 	<link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
+	<link href="css/layout.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -76,7 +77,6 @@ if(isset($_SESSION['user_login'])) {
 	</div>
 	</div>
 </header>
-
 
 <div class="section-seperator">
 	<div class="content-md container">

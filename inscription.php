@@ -32,15 +32,6 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
 	if(empty($code)){
 		$errorMsg[]="Veuillez entrer votre code postal";
 	}
-	if(empty($situation)){
-		$errorMsg[]="Veuillez choisir votre situation";
-	}
-	if(empty($sexe)){
-		$errorMsg[]="Veuillez choisir votre sexe";
-	}
-	if(empty($situation)){
-		$errorMsg[]="Veuillez entrer votre mot de passe";
-	}
 	else if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
 		$errorMsg[]="Email format est incorrect!";
 	}
@@ -58,9 +49,6 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
 	}
 	else if($password2 != $password){
 		$errorMsg[] = "Confirmation du mot de passe a échoué. Verifiez que vous avez entré le même mot de passe!";
-	}
-	else if(! $date) {
-		$errorMsg[]="Format de date incorrect";
 	}
 
 	else {
@@ -114,6 +102,7 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
 	<link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
+	<link href="css/layout.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -226,21 +215,21 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
 						<div class="form-group col-md-4">
 							<label for="situation" class="text-info" style="color: #19b9cc">Situation Familiale </label>
 							<select class="form-control" name="situation" id="situation">
-								<option value="autre">Autre</option>
-								<option value="célibataire">Célibataire</option>
-								<option value="marié">Marié(e)</option>
-								<option value="pacsé">Pacsé(e)</option>
-								<option value="divorcé">Divorcé(e)</option>
-								<option value="séparé">Séparé(e)</option>
-								<option value="veuf">Veuf(ve)</option>
+								<option value="Autre">Autre</option>
+								<option value="Célibataire">Célibataire</option>
+								<option value="Marié(e)">Marié(e)</option>
+								<option value="Pacsé(e)">Pacsé(e)</option>
+								<option value="Divorcé(e)">Divorcé(e)</option>
+								<option value="Séparé(e)">Séparé(e)</option>
+								<option value="Veuf(ve)">Veuf(ve)</option>
 							</select>
 						</div>
 						<div class="form-group col-md-2">
 							<label for="sexe" class="text-info" style="color: #19b9cc">Sexe</label>
 							<select class="form-control" name="sexe" id="sexe">
-								<option value="autre">Autre</option>
-								<option value="homme">Homme</option>
-								<option value="femme">Femme</option>
+								<option value="Autre">Autre</option>
+								<option value="Homme">Homme</option>
+								<option value="Femme">Femme</option>
 							</select>
 						</div>
 					</div>

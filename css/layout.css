@@ -22,6 +22,18 @@
   	[The "base.scss" contains basic default element styles
   		(colors, typography, margins & padding).]
 ------------------------------------------------------------------*/
+
+
+body::-webkit-scrollbar {
+  width: 0.25rem;
+}
+body::-webkit-scrollbar-track {
+  background: lightgray;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #19b9cc;
+}
 html {
   overflow-x: hidden;
 }

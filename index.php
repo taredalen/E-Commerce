@@ -19,6 +19,7 @@ if(isset($_SESSION["user_login"]))	//check condition user login not direct back 
 	<link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
+	<link href="css/layout.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
