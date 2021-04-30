@@ -22,5 +22,21 @@ try {
                              sexe VARCHAR(500),
                              password varchar(500) NOT NULL)";
 	$db->exec($sql);
-} catch (PDOEXCEPTION $e) {
+
+	$sql2 = "CREATE TABLE if not exists Commentaire(
+                             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                             nom VARCHAR(500) NOT NULL,
+                             prenom VARCHAR(500) NOT NULL,
+                             mail VARCHAR(500) NOT NULL,
+                             commentaire VARCHAR(900) NOT NULL)";
+	$db->exec($sql2);
+
+	$sql3 = "CREATE TABLE if not exists Administrateur(
+                             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                             mail VARCHAR(500) NOT NULL,
+                             password varchar(500) NOT NULL)";
+	$db->exec($sql3);
+
+}
+catch (PDOEXCEPTION $e) {
 }

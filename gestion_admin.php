@@ -1,3 +1,16 @@
+<?php
+require_once 'connection.php';
+session_start();
+if(!isset($_SESSION['admin_login'])) {
+	header("location: index.php");
+}
+$id = $_SESSION['admin_login'];
+$select_stmt = $db->prepare("SELECT * FROM Administrateur WHERE id=:id");
+$select_stmt->execute(array(":id"=>$id));
+$row=$select_stmt->fetch(PDO::FETCH_ASSOC);
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,16 +34,13 @@
 				<div class="menu-container">
 					<ul class="navbar-nav navbar-nav-right">
 						<li class="nav-item">
-							<a class="nav-item-child active" href="gestion_client.php">Accueil</a>
+							<a class="nav-item-child active" href="gestion_admin.php">Accueil</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-item-child">Commande</a>
+							<a class="nav-item-child">Gérer Produit</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-item-child" href="ajouter_commentaire.php">Commentaires</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-item-child" href="consulter_profil.php">Profil</a>
+							<a class="nav-item-child" href="consulter_commentaires.php">Consultation Commentaires</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-item-child" href="deconnexion.php">Déconnexion</a>
@@ -38,23 +48,7 @@
 					</ul>
 				</div>
 			</div>
-			<h3 style="color: #19b9cc" align="center">
-				<?php
-				require_once 'connection.php';
-				session_start();
-				if(!isset($_SESSION['user_login'])) {
-					header("location: index.php");
-				}
-				$id = $_SESSION['user_login'];
-				$select_stmt = $db->prepare("SELECT * FROM Client WHERE id=:id");
-				$select_stmt->execute(array(":id"=>$id));
-				$row=$select_stmt->fetch(PDO::FETCH_ASSOC);
-
-				if(isset($_SESSION['user_login'])) {?>
-					Welcome,
-					<?php
-					echo $row['prenom']." !";
-				} ?>
+			<h3 style="color: #19b9cc" align="center"> Administrateur
 			</h3>
 		</div>
 	</nav>
@@ -140,16 +134,16 @@
 	</div>
 </div>
 </body>
-	<footer class="footer">
-		<div class="content container">
-			<div class="row">
-				<div class="col-xs-6">
-					<p class="margin-b-20"> 0825 00 41 23</p>
-				</div>
-				<div class="col-xs-6 text-right">
-					<p class="margin-b-20"> HP Inc. 14, rue de la Verrerie – CS 40012, 92197 Meudon CEDEX France</p>
-				</div>
+<footer class="footer">
+	<div class="content container">
+		<div class="row">
+			<div class="col-xs-6">
+				<p class="margin-b-20"> 0825 00 41 23</p>
+			</div>
+			<div class="col-xs-6 text-right">
+				<p class="margin-b-20"> HP Inc. 14, rue de la Verrerie – CS 40012, 92197 Meudon CEDEX France</p>
 			</div>
 		</div>
-	</footer>
+	</div>
+</footer>
 </html>

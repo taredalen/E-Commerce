@@ -60,7 +60,7 @@ if(isset($_SESSION['user_login'])) {
 								<a class="nav-item-child">Commande</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-item-child">Commentaires</a>
+								<a class="nav-item-child" href="ajouter_commentaire.php" >Commentaires</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-item-child active" href="consulter_profil.php">Profil</a>

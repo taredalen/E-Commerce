@@ -14,3 +14,9 @@ catch(PDOEXCEPTION $e) {
 }
 
 
+try {
+	$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
+}
+catch(EXCEPTION $e) {
+	echo $e;
+}

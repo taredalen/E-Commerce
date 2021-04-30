@@ -1,6 +1,8 @@
 <?php
 
 require_once 'connection.php';
+require_once 'db.php';
+
 
 session_start();
 
@@ -25,28 +27,48 @@ if(isset($_REQUEST['btn_login'])) {
 	}
 	else {
 		try {
-			$select_stmt=$db->prepare("SELECT * FROM Client WHERE mail=:mail"); //sql select query
-			$select_stmt->execute(array(':mail'=>$mail));	//execute query with bind parameter
-			$row=$select_stmt->fetch(PDO::FETCH_ASSOC);
+			if($profile == 'client') {
+				$select_stmt = $db->prepare("SELECT * FROM Client WHERE mail=:mail"); //sql select query
+				$select_stmt->execute(array(':mail' => $mail));    //execute query with bind parameter
+				$row = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
-			if($select_stmt->rowCount() > 0){
-				if($mail==$row["mail"]){
-					if(password_verify($password, $row["password"])) {
-						$_SESSION["user_login"] = $row["id"];  	//session name is "user_login"
-						$loginMsg = "Connexion réussie...";		//user login success message
-						if($profile == 'admin') {
-							header("refresh:2; gestion_admin.php");
-						} else if ($profile == 'client'){
+				if ($select_stmt->rowCount() > 0) {
+					if ($mail == $row["mail"]) {
+						if (password_verify($password, $row["password"])) {
+							$_SESSION["user_login"] = $row["id"];    //session name is "user_login"
+							$loginMsg = "Connexion réussie...";        //user login success message
 							header("refresh:2; gestion_client.php");
+						} else {
+							$errorMsg[] = "Mot de passe incorrect";
 						}
 					} else {
-						$errorMsg[]="Mot de passe incorrect";
+						$errorMsg[] = "Login incorrect";
 					}
 				} else {
-					$errorMsg[]="Login incorrect";
+					$errorMsg[] = "Login incorrect";
 				}
-			} else {
-				$errorMsg[]="Login incorrect";
+			}
+
+			if($profile == 'admin') {
+				$select_stmt = $db->prepare("SELECT * FROM Administrateur WHERE mail=:mail"); //sql select query
+				$select_stmt->execute(array(':mail' => $mail));    //execute query with bind parameter
+				$row = $select_stmt->fetch(PDO::FETCH_ASSOC);
+
+				if ($select_stmt->rowCount() > 0) {
+					if ($mail == $row["mail"]) {
+						if ($password == $row["password"]) {
+							$_SESSION["admin_login"] = $row["id"];    //session name is "admin_login"
+							$loginMsg = "Connexion réussie...";        //admin login success message
+							header("refresh:2; gestion_admin.php");
+						} else {
+							$errorMsg[] = "Mot de passe incorrect";
+						}
+					} else {
+						$errorMsg[] = "Login incorrect";
+					}
+				} else {
+					$errorMsg[] = "Login incorrect";
+				}
 			}
 		}
 		catch(PDOException $e) {

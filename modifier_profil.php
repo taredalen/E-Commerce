@@ -13,21 +13,8 @@ $select_stmt = $db->prepare("SELECT * FROM Client WHERE id=:id");
 $select_stmt->execute(array(":id"=>$id));
 $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
 
-if(isset($_SESSION['user_login'])) {
-	$nom = $row['nom'];
-	$prenom = $row['prenom'];
-	$mail = $row['mail'];
-	$rue = $row['rue'];
-	$numero = $row['numero'];
-	$ville = $row['ville'];
-	$code = $row['code'];
-	$situation = $row['situation'];
-	$naissance = $row['naissance'];
-	$sexe = $row['sexe'];
-	$password = $row['password'];
-}
 
-$date = Datetime::createFromFormat('Y-m-d', $naissance);
+$date = Datetime::createFromFormat('Y-m-d', $row['naissance']);
 $date_format=$date->format('d-m-Y');
 
 if(isset($_POST['btn_save1'])){
@@ -39,7 +26,6 @@ if(isset($_POST['btn_save1'])){
 	$ville		= strip_tags($_POST['ville']);
 	$code		= strip_tags($_POST['code']);
 
-	$date = Datetime::createFromFormat('d-m-Y', $naissance);
 
 	if(empty($nom)){
 		$errorMsg[]="Veuillez entrer votre nom";
@@ -53,15 +39,6 @@ if(isset($_POST['btn_save1'])){
 	if(empty($code)){
 		$errorMsg[]="Veuillez entrer votre code postal";
 	}
-	if(empty($situation)){
-		$errorMsg[]="Veuillez choisir votre situation";
-	}
-	if(empty($sexe)){
-		$errorMsg[]="Veuillez choisir votre sexe";
-	}
-	if(empty($situation)){
-		$errorMsg[]="Veuillez entrer votre mot de passe";
-	}
 	else if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
 		$errorMsg[]="Email format est incorrect!";
 	}
@@ -71,31 +48,12 @@ if(isset($_POST['btn_save1'])){
 	else if(!preg_match("/^[0-9]{5}$/", $code) ) {
 		$errorMsg[]="Format de code postal est incorrect!";
 	}
-	else if(! $date) {
-		$errorMsg[]="Format de date incorrect";
-	}
 
 	else {
 		try {
 			if(!isset($errorMsg)) {
-				$date_format=$date->format('Y-m-d');
-				$new_password = password_hash($password, PASSWORD_DEFAULT); //encrypt password using password_hash()
-
-				$insert_stmt=$db->prepare("INSERT INTO Client(nom, prenom, mail, numero, rue, ville, code, situation, naissance, sexe, password)
-                                      VALUES(:nom,:prenom,:mail,:numero,:rue,:ville,:code,:situation,:naissance,:sexe,:password)");		//sql insert query
-
-				if($insert_stmt->execute(array(':nom'	=>$nom,
-					':prenom'	=>$prenom,
-					':mail'	    =>$mail,
-					':numero'   =>$numero,
-					':rue'	    =>$rue,
-					':ville'	=>$ville,
-					':code'	    =>$code,
-					':situation'=>$situation,
-					':naissance'=>$date_format,
-					':sexe' 	=>$sexe,
-					':password' =>$new_password))){
-
+				$insert_stmt=$db->prepare("UPDATE Client SET nom=?, prenom=?, mail=?, numero=?, rue=?, ville=?, code=?"); //sql insert query
+				if($insert_stmt->execute(array($nom, $prenom, $mail, $numero, $rue, $ville, $code))){
 					$registerMsg="Les informations de profil modifiées avec succès.";
 				}
 			}
@@ -107,58 +65,54 @@ if(isset($_POST['btn_save1'])){
 	}
 }
 
-if(isset($_POST['btn_save2']))
-{
+if(isset($_POST['btn_save2'])) {
 	$situation	= strip_tags($_POST['situation']);
 	$naissance	= strip_tags($_POST['naissance']);
 	$sexe		= strip_tags($_POST['sexe']);
 
 	try {
 		if(!isset($errorMsg3)) {
-			$date = Datetime::createFromFormat('Y-m-d', $naissance);
-			$date_format=$date->format('d-m-Y');
+			$date_format=$date->format('Y-m-d');
 
-			$insert_stmt=$db->prepare("UPDATE Client SET situation=:situation,naissance=:naissance,sexe=:sexe WHERE  id=:id");//sql insert query
-
-			if($insert_stmt->execute(array(':situation' =>$situation, ':naissance' =>$date_format, ':sexe' =>$sexe))){
-				$registerMsg3="Les informations sont modifiées avec succès";
+			$insert_stmt=$db->prepare("UPDATE Client SET situation=?, naissance=?, sexe=?");		//sql insert query
+			if($insert_stmt->execute(array($situation, $date_format, $sexe))){
+				$registerMsg2="Les informations de profil modifiées avec succès.";
 			}
 		}
-	}
-	catch(PDOException $e) {}
+	} catch(PDOException $e) {}
 }
 
-if(isset($_POST['btn_save3']))
-{
-	echo '2';
+if(isset($_POST['btn_save3'])) {
 	$old_password	= strip_tags($_POST['old_password']);
-	$new_password	= strip_tags($_POST['new_password']);
-	$password	    = strip_tags($_POST['password']);
+	$new_password_1	= strip_tags($_POST['new_password_1']);
+	$new_password_2 = strip_tags($_POST['new_password_2']);
 
-	if(strlen($password) < 8){
+	if(strlen($new_password_1) < 8){
 		$errorMsg3[] = "Mot de passe doit contenir au moins 8 caractères";
 	}
-	else if(!preg_match("/^[A-Z][a-zA-Z0-9]*[a-z]$/", $password)){
+	else if(!preg_match("/^[A-Z][a-zA-Z0-9]*[a-z]$/", $new_password_2)){
 		$errorMsg3[] = "Format de mot de passe est incorrect!";
 	}
-	else if($new_password != $password){
+	else if(!password_verify($old_password, $row['password'])){
+		$errorMsg3[] = "L'ancien mot de passe est incorrect!";
+	}
+	else if($new_password_1 != $new_password_2){
 		$errorMsg3[] = "Confirmation du mot de passe a échoué. Verifiez que vous avez entré le même mot de passe!";
 	}
 
 	else {
 		try {
 			if(!isset($errorMsg3)) {
+				$final_password = password_hash($new_password_2, PASSWORD_DEFAULT); //encrypt password using password_hash()
 
-				//$new_password = password_hash($password, PASSWORD_DEFAULT); //encrypt password using password_hash()
-
-				$insert_stmt=$db->prepare("UPDATE Client SET password = :password WHERE  id=:id");//sql insert query
-
-				if($insert_stmt->execute(array(':password' 	=>$password, ":id" =>$id))){
-					$registerMsg3="Le mot de passe modifié avec succès";
+				$insert_stmt=$db->prepare("UPDATE Client SET password=?");		//sql insert query
+				if($insert_stmt->execute(array($final_password))){
+					$registerMsg3="Le mot de passe est modifié avec succès.";
 				}
 			}
+		} catch(PDOException $e) {
+			echo $e;
 		}
-		catch(PDOException $e) {}
 	}
 }
 ?>
@@ -198,7 +152,7 @@ if(isset($_POST['btn_save3']))
 									<a class="nav-item-child">Commande</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-item-child">Commentaires</a>
+									<a class="nav-item-child" href="ajouter_commentaire.php">Commentaires</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-item-child active" href="consulter_profil.php">Profil</a>
@@ -251,21 +205,21 @@ if(isset($_POST['btn_save3']))
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label for="nom" class="text-info"  style="color: #19b9cc">Nom</label>
-							<input type="text" class="form-control" id="nom" name="nom" minlength="2" value='<?php echo $nom; ?>'>
+							<input type="text" class="form-control" id="nom" name="nom" minlength="2" value='<?php echo $row['nom']; ?>'>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="prenom" class="text-info" style="color: #19b9cc">Prenom</label>
-							<input type="text" class="form-control" id="prenom" name="prenom" minlength="2" value='<?php echo $prenom; ?>'>
+							<input type="text" class="form-control" id="prenom" name="prenom" minlength="2" value='<?php echo $row['prenom']; ?>'>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label for="mail" class="text-info" style="color: #19b9cc">Email</label>
-							<input type="email" class="form-control" id="mail" name="mail" value='<?php echo $mail; ?>'>
+							<input type="email" class="form-control" id="mail" name="mail" value='<?php echo $row['mail']; ?>'>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="numero" class="text-info" style="color: #19b9cc">Numéro de téléphone</label>
-							<input type="tel" class="form-control" id="numero" name="numero" minlength="8" value='<?php echo $numero; ?>'>
+							<input type="tel" class="form-control" id="numero" name="numero" minlength="8" value='<?php echo $row['numero']; ?>'>
 							<small id="numberHelpBlock" class="form-text text-muted">
 								Doit contenir 8 chiffres et commencer par 0</small>
 						</div>
@@ -273,15 +227,15 @@ if(isset($_POST['btn_save3']))
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label for="rue" class="text-info" style="color: #19b9cc">Rue</label>
-							<input type="text" class="form-control" id="rue" name="rue" value='<?php echo $rue; ?>'>
+							<input type="text" class="form-control" id="rue" name="rue" value='<?php echo $row['rue']; ?>'>
 						</div>
 						<div class="form-group col-md-4">
 							<label for="ville" class="text-info" style="color: #19b9cc">Ville</label>
-							<input type="text" class="form-control" id="ville" name="ville" value='<?php echo $ville; ?>'>
+							<input type="text" class="form-control" id="ville" name="ville" value='<?php echo $row['ville']; ?>'>
 						</div>
 						<div class="form-group col-md-2">
 							<label for="code" class="text-info" style="color: #19b9cc">Code Postal</label>
-							<input type="text" class="form-control" id="code" name="code" minlength="5" maxlength="5" value='<?php echo $code; ?>'>
+							<input type="text" class="form-control" id="code" name="code" minlength="5" maxlength="5" value='<?php echo $row['code']; ?>'>
 						</div>
 					</div>
 					<button type="submit" name="btn_save1" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Enregistrer</button>
@@ -333,23 +287,61 @@ if(isset($_POST['btn_save3']))
 						<div class="form-group col-md-4">
 							<label for="situation" class="text-info" style="color: #19b9cc">Situation Familiale </label>
 							<select class="form-control" name="situation" id="situation">
-								<option value= <?php echo $situation; ?>><?php echo $situation; ?></option>
-								<option value="Célibataire">Célibataire</option>
-								<option value="Marié(e)">Marié(e)</option>
-								<option value="Pacsé(e)" >Pacsé(e)</option>
-								<option value="Divorcé(e)">Divorcé(e)</option>
-								<option value="Séparé(e)">Séparé(e)</option>
-								<option value="Veuf(ve)">Veuf(ve)</option>
-								<option value="Autre">Autre</option>
+
+								<?php
+								$s1 = $s2 = $s3 = $s4 = $s5 = $s6 = $s7 = '';
+								switch ($row['situation']) {
+									case 'Célibataire':
+										$s1 = 'selected';
+										break;
+									case 'Marié(e)':
+										$s2 = 'selected';
+										break;
+									case 'Pacsé(e)':
+										$s3 = 'selected';
+										break;
+									case 'Divorcé(e)':
+										$s4 = 'selected';
+										break;
+									case 'Séparé(e)':
+										$s5 = 'selected';
+										break;
+									case 'Veuf(ve)':
+										$s6 = 'selected';
+										break;
+									default :
+										$s7 = 'selected';
+										break;
+								} ?>
+
+								<option value="Célibataire" <?= $s1 ?> >Célibataire</option>
+								<option value="Marié(e)" <?= $s2 ?>>Marié(e)</option>
+								<option value="Pacsé(e)" <?= $s3 ?> >Pacsé(e)</option>
+								<option value="Divorcé(e)" <?= $s4 ?>>Divorcé(e)</option>
+								<option value="Séparé(e)" <?= $s5 ?>>Séparé(e)</option>
+								<option value="Veuf(ve)" <?= $s6 ?>>Veuf(ve)</option>
+								<option value="Autre" <?= $s7 ?>>Autre</option>
 							</select>
 						</div>
 						<div class="form-group col-md-2">
 							<label for="sexe" class="text-info" style="color: #19b9cc">Sexe</label>
 							<select class="form-control" name="sexe" id="sexe">
-								<option value="<?php echo $sexe; ?>"><?php echo $sexe; ?></option>
-								<option value="Autre">Autre</option>
-								<option value="Homme">Homme</option>
-								<option value="Femme">Femme</option>
+								<?php
+								$s1 = $s2 = $s3 = '';
+								switch ($row['sexe']) {
+									case 'Femme':
+										$s1 = 'selected';
+										break;
+									case 'Homme':
+										$s2 = 'selected';
+										break;
+									default :
+										$s3 = 'selected';
+										break;
+								} ?>
+								<option value="Autre" <?= $s3 ?> >Autre</option>
+								<option value="Homme" <?= $s2 ?> >Homme</option>
+								<option value="Femme" <?= $s1 ?> >Femme</option>
 							</select>
 						</div>
 					</div>
@@ -398,11 +390,11 @@ if(isset($_POST['btn_save3']))
 						</div>
 						<div class="form-group col-md-4">
 							<label for="password2" class="text-info" style="color: #19b9cc">Nouveau mot de passe</label>
-							<input type="password" class="form-control" id="password2" name="new_password">
+							<input type="password" class="form-control" id="password2" name="new_password_1">
 						</div>
 						<div class="form-group col-md-4">
 							<label for="password2" class="text-info" style="color: #19b9cc">Confirmation</label>
-							<input type="password" class="form-control" id="password2" name="password">
+							<input type="password" class="form-control" id="password2" name="new_password_2">
 						</div>
 					</div>
 					<button type="submit" name="btn_save3" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Enregistrer</button>
