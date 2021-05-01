@@ -28,7 +28,7 @@ try {
                              nom VARCHAR(500) NOT NULL,
                              prenom VARCHAR(500) NOT NULL,
                              mail VARCHAR(500) NOT NULL,
-                             commentaire VARCHAR(900) NOT NULL)";
+                             commentaire VARCHAR(2000) NOT NULL)";
 	$db->exec($sql2);
 
 	$sql3 = "CREATE TABLE if not exists Administrateur(
