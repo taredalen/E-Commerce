@@ -35,7 +35,7 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
 	else if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
 		$errorMsg[]="Email format est incorrect!";
 	}
-	else if(!preg_match("/^0[0-9]{7}$/", $numero) ) {
+	else if(!preg_match("/^0[0-9]{8}$/", $numero) ) {
 		$errorMsg[]="Format de numéro de téléphone est incorrect!";
 	}
 	else if(!preg_match("/^[0-9]{5}$/", $code) ) {
