@@ -4,12 +4,13 @@
 	<link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="bootstrap/css/bootstrap-table.css" rel="stylesheet" type="text/css"/>
-	<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet" type="text/css"/>
 	<link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
 	<link href="css/layout.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
 
+<div class="bg-color-sky-light">
 
 <header class="header">
 	<nav class="navbar" role="navigation">
@@ -23,13 +24,13 @@
 				<div class="menu-container">
 					<ul class="navbar-nav navbar-nav-right">
 						<li class="nav-item">
-							<a class="nav-item-child active" href="gestion_admin.php">Accueil</a>
+							<a class="nav-item-child" href="gestion_admin.php">Accueil</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-item-child"  href="add_comment.php">Gérer Produit</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-item-child" href="consulter_commentaires.php">Consultation Commentaires</a>
+							<a class="nav-item-child active" href="consulter_commentaires.php">Consultation Commentaires</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-item-child" href="deconnexion.php">Déconnexion</a>
@@ -37,43 +38,64 @@
 					</ul>
 				</div>
 			</div>
-			<h3 style="color: #19b9cc" align="center"> Administrateur
-			</h3>
 		</div>
 	</nav>
 </header>
-
-
-
-
-
+</div>
 <div class="section-seperator">
 	<div class="content-md container">
 		<div class="col well">
-			<h3 class="text-primary">Commentaires</h3>
+			<div class="form-group row">
+				<form method="POST" action="">
+				<div class="col-xs-6">
+					<input class="form-control" style="background-color:#ffffff;" id="mail" type="text" name="mail">
+				</div>
+				<div class="col-xs-3">
+					<button class="form-control btn-info" name="display_one">Effectuer la recherche</button>
+				</div>
+				</form>
+				<div class="col-xs-3">
+					<form method="POST" action="">
+						<button class="form-control btn-info" name="display_all">Afficher tous les commentaires</button>
+					</form>
+				</div>
+			</div>
 			<hr style="border-top:1px dotted #ccc;"/>
-			<form method="POST" action="">
-				<button class="btn btn-info" name="display">Afficher les commentaires</button>
-			</form>
-			<br /><br />
-			<table class="table table-bordered table-responsive">
+			<?php
+			if(isset($_GET["message"])){
+				$message = $_GET["message"];
+				?>
+				<div class="alert alert-success" align="center">
+					<strong><?php echo $message; ?></strong>
+				</div>
+				<?php
+				if(isset($_GET["param"])=='all'){
+					header("refresh:2; consulter_commentaires.php");
+				}
+				else if(isset($_GET["param"])=='one'){
+					$param = 'one';
+				}
+			}
+			?>
+
+			<table class="table table-bordered ">
 				<thead class="alert-info">
 				<tr>
-					<th class="text-center">Prenom</th>
-					<th class="text-center">Nom</th>
+					<th class="text-center col-sm-1">Prenom</th>
+					<th class="text-center col-sm-1">Nom</th>
 					<th class="text-center">Mail</th>
 					<th class="text-center">Commentaire</th>
-					<th class="text-center col-md-1">Supprimer</th>
+					<th class="text-center">Réponse</th>
 
 				</tr>
 				</thead>
 				<tbody style="background-color:#ffffff;">
 
 				<?php
-				require_once 'connection.php';
-				if(ISSET($_POST['display'])){
+				$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 
-					$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
+				if(ISSET($_POST['display_all']) OR isset($_GET["message"])){
+
 					$stmt = $connect->prepare("SELECT * FROM Commentaire");
 					$stmt->execute();
 					$result = $stmt->get_result();
@@ -84,11 +106,36 @@
 							<td class="text-center"><?php echo $row['prenom']?></td>
 							<td class="text-center"><?php echo $row['nom']?>  </td>
 							<td class="text-center"><?php echo $row['mail']?></td>
-							<td class="pt-3-half " contenteditable="true"><?php echo $row['commentaire']?></td>
-							<th class="text-center col-md-1">
-								<button type="submit" name="supprimer" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">supprimer</button>
-							</th>
+							<td class="pt-3-half "><?php echo $row['commentaire']?></td>
+							<th class="text-center" contenteditable="true"></th>
+							<td>
+								<a href=ajouter_reponse.php?id=<?php echo $row["id"]?>&param=all><button class="btn btn-info">✓</button></a>
+								<a href=suppression.php?id=<?php echo $row["id"]?>&param=all><button class="btn btn-info">✕</button></a>
+							</td>
+						</tr>
+						<?php
+					}
+				}
 
+				if(ISSET($_POST['display_one'])){
+					$mail = strip_tags($_REQUEST["mail"]);
+
+					$stmt = $connect->prepare("SELECT * FROM Commentaire WHERE mail=?");
+					$stmt->bind_param("s", $mail);
+					$stmt->execute();
+					$result = $stmt->get_result();
+					while($row = $result->fetch_assoc()){
+						?>
+						<tr>
+							<td class="text-center"><?php echo $row['prenom']?></td>
+							<td class="text-center"><?php echo $row['nom']?>  </td>
+							<td class="text-center"><?php echo $row['mail']?></td>
+							<td class="pt-3-half "><?php echo $row['commentaire']?></td>
+							<th class="text-center" contenteditable="true"></th>
+							<td>
+								<a href=ajouter_reponse.php?id=<?php echo $row["id"]?>&param=one><button class="btn btn-info">✓</button></a>
+								<a href=suppression.php?id=<?php echo $row["id"]?>&param=one> <button class="btn btn-info">✕</button></a>
+							</td>
 						</tr>
 						<?php
 					}
@@ -99,13 +146,9 @@
 		</div>
 	</div>
 </div>
-</body>
-
-
-
 
 <div class="bg-color-sky-light">
-	<footer class="footer">
+	<footer class="footer" id="footer">
 		<div class="content container">
 			<div class="row">
 				<div class="col-xs-6">
@@ -118,4 +161,5 @@
 		</div>
 	</footer>
 </div>
+</body>
 </html>
