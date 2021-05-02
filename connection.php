@@ -5,10 +5,18 @@ $db_user="root";
 $db_password="";
 $db_name="ProjectPHP";
 
-// Create connection
-$db = new mysqli($db_host, $db_user, $db_password,$db_name);
-// Create database
-$sql = "CREATE DATABASE ProjectPHP";
-$result = mysqli_query($db, $sql);
-
-$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
+try {
+    // Create connection to server
+    $db = new mysqli($db_host, $db_user, $db_password);
+    // Create database
+    $sql = "CREATE DATABASE ProjectPHP";
+    mysqli_query($db, $sql);
+    /*if(mysqli_query($db, $sql)){
+        echo "Database created successfully";
+    } else{
+        echo "ERROR: Could not able to execute $sql. " . mysqli_error($db);
+    }*/
+}
+catch(EXCEPTION $e) {
+    echo $e;
+}
