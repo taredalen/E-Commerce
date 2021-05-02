@@ -26,7 +26,7 @@
 							<a class="nav-item-child active" href="gestion_admin.php">Accueil</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-item-child"  href="add_comment.php">Gérer Produit</a>
+							<a class="nav-item-child"  href="gestion_produit.php">Gérer Produit</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-item-child" href="consulter_commentaires.php">Consultation Commentaires</a>
