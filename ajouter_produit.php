@@ -1,13 +1,14 @@
 <?php
 require_once 'connection.php';
+require_once 'db.php';
+
 session_start();
+
 if(!isset($_SESSION['admin_login'])) {
     header("location: index.php");
 }
-$id = $_SESSION['admin_login'];
 
-if(isset($_REQUEST['btn_add'])) //button name "btn_add"
-{
+if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
     $refe	        = strip_tags($_REQUEST['refe']);
     $libelle		= strip_tags($_REQUEST['libelle']);
     $cat		    = strip_tags($_REQUEST['cat']);
@@ -29,39 +30,22 @@ if(isset($_REQUEST['btn_add'])) //button name "btn_add"
     if(empty($tva)){
         $errorMsg[]="Veuillez entrer la TVA applicable au produit";
     }
-    if(empty($desc)){
+    if(empty($descr)){
         $errorMsg[]="Veuillez entrer la description du produit";
     }
 
     else {
-        try {
-            $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
-            $stmt = $connect->prepare("SELECT * FROM Produit WHERE refe=?");
-            $stmt->bind_param("i", $refe);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $row = $result->fetch_assoc();
+        $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 
-                $insert_stmt=$db->prepare("INSERT INTO Produit(refe, libelle, cat, marque, stock, prix, tva, descr)
-                                      VALUES(:refe,:libelle,:cat,:marque,:stock,:prix,:tva,:descr)");		//sql insert query
-
-                if($insert_stmt->execute(array(':refe'	=>$refe,
-                    ':libelle'	=>$libelle,
-                    ':cat'	    =>$cat,
-                    ':marque'   =>$marque,
-                    ':stock'	=>$stock,
-                    ':prix'	    =>$prix,
-                    ':tva'	    =>$tva,
-                    ':descr'    =>$descr))){
-
-                    $registerMsg="Le produit a été ajouté avec succès.";
-                    header("refresh:4;gestion_produit.php");	//refresh 2 second after redirect to "authentification.php" page
-                }
-
+        $sql = "INSERT INTO Produits (refe, libelle, cat, marque, stock, prix, tva, descr) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($connect,$sql);
+        $refe = uniqid($refe);
+        mysqli_stmt_bind_param($stmt, "ssssiiis",$refe, $libelle, $cat, $marque, $stock, $prix, $tva, $descr);
+        if($stmt->execute()) {
+            $successMsg = "Produit ajouté avec succès";
         }
-        catch(PDOException $e) {
-            echo $e;
-            echo $e->getMessage();
+        else {
+            $errorMsg[]="Erreur";
         }
     }
 }
@@ -95,7 +79,7 @@ if(isset($_REQUEST['btn_add'])) //button name "btn_add"
                     <div class="menu-container">
                         <ul class="navbar-nav navbar-nav-right">
                             <li class="nav-item">
-                                <a class="nav-item-child" href="index.php">
+                                <a class="nav-item-child" href="gestion_admin.php">
                                     Accueil
                                 </a>
                             </li>
@@ -115,17 +99,31 @@ if(isset($_REQUEST['btn_add'])) //button name "btn_add"
 </div>
 
 <!--=========== Page ============-->
-<?php
-    $ref = "ABCDEFGHIJKLM";
-    $refe = uniqid($ref);
-?>
 <div class="section-seperator">
     <div class="content-md container">
         <div class="col well">
             <h3 class="text-primary">Ajouter un produit</h3>
             <hr style="border-top:1px dotted #ccc;"/>
             <div style="align-content: center">
-                <form method="post" action="ajouter_produit.php">
+                <?php
+                if(isset($errorMsg)) {
+                    foreach($errorMsg as $error) {
+                        ?>
+                        <div class="alert alert-danger">
+                            <strong><?php echo $error; ?></strong>
+                        </div>
+                        <?php
+                    }
+                }
+                if(isset($successMsg)) {
+                    ?>
+                    <div class="alert alert-success">
+                        <strong><?php echo $successMsg; ?></strong>
+                    </div>
+                    <?php
+                }
+                ?>
+                <form method="GET" action="ajouter_produit.php">
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="refe" class="text-info"  style="color: #19b9cc">Référence produit*</label>
@@ -153,8 +151,8 @@ if(isset($_REQUEST['btn_add'])) //button name "btn_add"
                             <select class="form-control" name="marque" id="marque">
                                 <option value="Autre">Autre</option>
                                 <option value="HP">HP</option>
-                                <option value="imprimante">Imprimante</option>
-                                <option value="scanner">Scanner</option>
+                                <option value="cannon">Cannon</option>
+                                <option value="boulanger">Boulanger</option>
                             </select>
                         </div>
                         <div class="form-group col-md-2">
@@ -175,10 +173,10 @@ if(isset($_REQUEST['btn_add'])) //button name "btn_add"
                         </div>
                         <div class="form-group col-md-4">
                             <label for="descr" class="text-info" style="color: #19b9cc">Description du produit*</label>
-                            <textarea name="message" id="descr" name="descr" placeholder="..."></textarea>
+                            <textarea id="descr" name="descr" placeholder="..."></textarea>
                         </div>
                     </div>
-                    <button type="submit" name="btn_add" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Créer un produit</button>
+                    <button type="submit" name="btn_add" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Ajouter un produit</button>
                 </form>
             </div>
         </div>
