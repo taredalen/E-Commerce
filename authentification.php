@@ -34,7 +34,7 @@ if(isset($_REQUEST['btn_login'])) {
 
 				if ($select_stmt->rowCount() > 0) {
 					if ($mail == $row["mail"]) {
-						if (password_verify($password, $row["password"])) {
+						if ($password == $row["password"]) {
 							$_SESSION["user_login"] = $row["id"];    //session name is "user_login"
 							$loginMsg = "Connexion réussie...";        //user login success message
 							header("refresh:2; gestion_client.php");
