@@ -5,7 +5,7 @@ $db_password = "";
 $db_name = "ProjectPHP";
 
 try {
-    // Create connection
+    // Create connection to server
     $db = mysqli_connect($db_host, $db_user, $db_password, $db_name);
 
     // Les requêtes
