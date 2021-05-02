@@ -103,6 +103,11 @@ if(isset($_POST['update'])) {// when click on Update button
                     </div>
                     <?php
                 }
+
+                $sql = "SELECT * FROM Produits WHERE id='" . $id . "'";
+                $result = mysqli_query($connect, $sql);
+
+                while ($data = mysqli_fetch_assoc($result)){
                 ?>
 
                 <table class="table table-bordered table-responsive">
@@ -119,12 +124,6 @@ if(isset($_POST['update'])) {// when click on Update button
                     </tr>
                     </thead>
                     <tbody style="background-color:#ffffff;">
-                    <?php
-                    $sql = "SELECT * FROM Produits WHERE id='".$id."'";
-                    $result = mysqli_query($connect, $sql);
-
-                    while($data = mysqli_fetch_assoc($result)){
-                        ?>
                         <tr>
                             <td class="text-center"><?php echo $data['refe']?></td>
                             <td class="text-center"><?php echo $data['libelle']?></td>
@@ -135,9 +134,6 @@ if(isset($_POST['update'])) {// when click on Update button
                             <td class="text-center"><?php echo $data['TVA']?></td>
                             <td class="pt-3-half"><?php echo $data['descr']?></td>
                         </tr>
-                        <?php
-                    }
-                    ?>
                     </tbody>
                 </table>
                 <br/><br/>
@@ -145,16 +141,16 @@ if(isset($_POST['update'])) {// when click on Update button
                 <form method="POST">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="libelle" class="text-info" style="color: #19b9cc">Libellé*</label>
-                            <input type="text" class="form-control" id="libelle" name="libelle" minlength="3" placeholder="Ordinateur PC" required/>
+                            <label for="libelle" class="text-info" style="color: #19b9cc">Libellé</label>
+                            <input type="text" class="form-control" id="libelle" name="libelle" minlength="3" value="<?php echo $data['libelle']?>"/>
                             <small id="numberHelpBlock" class="form-text text-muted">
                                 Doit contenir au moins 3 caractères.</small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <label for="cat" class="text-info" style="color: #19b9cc">Catégorie*</label>
-                            <select class="form-control" name="cat" id="cat">
+                            <label for="cat" class="text-info" style="color: #19b9cc">Catégorie</label>
+                            <select class="form-control" name="cat" id="cat" value="<?php echo $data['cat']?>">
                                 <option value="Autre">Autre</option>
                                 <option value="pc">PC</option>
                                 <option value="imprimante">Imprimante</option>
@@ -162,8 +158,8 @@ if(isset($_POST['update'])) {// when click on Update button
                             </select>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="marque" class="text-info" style="color: #19b9cc">Marque*</label>
-                            <select class="form-control" name="marque" id="marque">
+                            <label for="marque" class="text-info" style="color: #19b9cc">Marque</label>
+                            <select class="form-control" name="marque" id="marque" value="<?php echo $data['marque']?>">
                                 <option value="Autre">Autre</option>
                                 <option value="HP">HP</option>
                                 <option value="cannon">Cannon</option>
@@ -171,29 +167,29 @@ if(isset($_POST['update'])) {// when click on Update button
                             </select>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="stock" class="text-info" style="color: #19b9cc">Quantité en stock*</label>
-                            <input type="number" class="form-control" id="stock" name="stock" min="1" required/>
-                            <small id="numberHelpBlock" class="form-text text-muted">
-                                Doit être supérieure à 0.</small>
+                            <label for="stock" class="text-info" style="color: #19b9cc">Quantité en stock</label>
+                            <input type="number" class="form-control" id="stock" name="stock" value="<?php echo $data['stock']?>"/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="prix" class="text-info" style="color: #19b9cc">Prix unitaire*</label>
-                            <input type="number" class="form-control" id="prix" name="prix" placeholder="12,99" required/>
+                            <label for="prix" class="text-info" style="color: #19b9cc">Prix unitaire</label>
+                            <input type="number" class="form-control" id="prix" name="prix" value="<?php echo $data['prix']?>"/>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="TVA" class="text-info" style="color: #19b9cc">TVA*</label>
-                            <input type="number" class="form-control" id="TVA" name="TVA" placeholder="20" required/>
+                            <label for="TVA" class="text-info" style="color: #19b9cc">TVA</label>
+                            <input type="number" class="form-control" id="TVA" name="TVA" value="<?php echo $data['TVA']?>"/>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="descr" class="text-info" style="color: #19b9cc">Description du produit*</label>
-                            <textarea id="descr" name="descr" placeholder="..." required></textarea>
+                            <label for="descr" class="text-info" style="color: #19b9cc">Description du produit</label>
+                            <textarea id="descr" name="descr" value="<?php echo $data['descr']?>"><?php echo $data['descr']?></textarea>
                         </div>
                     </div>
                     <button type="submit" name="update" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Mettre à jour</button>
                 </form>
-
+                    <?php
+                }
+                ?>
             </div>
         </div>
     </div>
