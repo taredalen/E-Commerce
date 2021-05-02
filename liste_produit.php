@@ -1,4 +1,7 @@
-
+<?php
+require_once 'connection.php';
+require_once 'db.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +57,24 @@
         <div class="col well">
             <h3 class="text-primary">Produits</h3>
             <hr style="border-top:1px dotted #ccc;"/>
+            <?php
+            if(isset($errorMsg)) {
+                foreach($errorMsg as $error) {
+                    ?>
+                    <div class="alert alert-danger">
+                        <strong><?php echo $error; ?></strong>
+                    </div>
+                    <?php
+                }
+            }
+            if(isset($successMsg)) {
+                ?>
+                <div class="alert alert-success">
+                    <strong><?php echo $successMsg; ?></strong>
+                </div>
+                <?php
+            }
+            ?>
             <form method="POST" action="">
                 <label for="cat" class="text-info"  style="color: #19b9cc">Catégorie</label>
                 <select class="form-control" name="cat" id="cat">
@@ -109,6 +130,7 @@
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
 
+                $i=0;
                 while($row = mysqli_fetch_assoc($result)){
                     ?>
                     <tr>
@@ -124,11 +146,12 @@
                             <button type="submit" name="modifier" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='edit_product.php?id=<?php echo $row['id']; ?>'">Modifier</button>
                         </th>
                         <th class="text-center col-md-1">
-                            <button type="submit" name="supprimer" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='delete_product.php?id=<?php echo $row['id']; ?>'">Supprimer</button>
+                            <button type="submit" name="supprimer" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='delete_product.php?id=<?php echo $row['id']; ?>'" value="<?php echo $row["id"]; ?>">Supprimer</button>
                         </th>
                     </tr>
                     <?php
                 }
+                $i++;
                 ?>
                 </tbody>
             </table>
