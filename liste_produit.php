@@ -121,10 +121,10 @@
                         <td class="text-center"><?php echo $row['TVA']?></td>
                         <td class="pt-3-half"><?php echo $row['descr']?></td>
                         <th class="text-center col-md-1">
-                            <button type="submit" name="modifier" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Modifier</button>
+                            <button type="submit" name="modifier" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='edit_product.php?id=<?php echo $row['id']; ?>'">Modifier</button>
                         </th>
                         <th class="text-center col-md-1">
-                            <button type="submit" name="supprimer" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Supprimer</button>
+                            <button type="submit" name="supprimer" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='delete_product.php?id=<?php echo $row['id']; ?>'">Supprimer</button>
                         </th>
                     </tr>
                     <?php
