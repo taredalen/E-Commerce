@@ -1,10 +1,16 @@
 <?php
 require_once 'connection.php';
+
 session_start();
 if(!isset($_SESSION['admin_login'])) {
     header("location: index.php");
 }
 $id = $_SESSION['admin_login'];
+//$db = mysqli_connect("localhost", "root", "", "ProjectPHP");
+
+$select_stmt = $db->prepare("SELECT * FROM Produits WHERE id=:id");
+$select_stmt->execute(array(":id"=>$id));
+$row=$select_stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -35,9 +41,7 @@ $id = $_SESSION['admin_login'];
                     <div class="menu-container">
                         <ul class="navbar-nav navbar-nav-right">
                             <li class="nav-item">
-                                <a class="nav-item-child" href="index.php">
-                                    Accueil
-                                </a>
+                                <a class="nav-item-child" href="gestion_admin.php"> Accueil </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-item-child active" href="deconnexion.php">
