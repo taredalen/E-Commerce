@@ -11,6 +11,12 @@ try {
     // Create database
     $sql = "CREATE DATABASE ProjectPHP";
     mysqli_query($db, $sql);
+    /*if(mysqli_query($db, $sql)){
+    echo "Database created successfully";
+    }
+    else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($db);
+    }*/
 }
 catch(EXCEPTION $e) {
     echo $e;
