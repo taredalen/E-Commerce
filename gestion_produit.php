@@ -1,14 +1,11 @@
 <?php
 require_once 'connection.php';
-
 session_start();
 if(!isset($_SESSION['admin_login'])) {
     header("location: index.php");
 }
 $id = $_SESSION['admin_login'];
-//$db = mysqli_connect("localhost", "root", "", "ProjectPHP");
-
-$select_stmt = $db->prepare("SELECT * FROM Produits WHERE id=:id");
+$select_stmt = $db->prepare("SELECT * FROM Administrateur WHERE id=:id");
 $select_stmt->execute(array(":id"=>$id));
 $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
 ?>
