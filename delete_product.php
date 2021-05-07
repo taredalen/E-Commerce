@@ -4,8 +4,8 @@ require_once 'db.php';
 
 $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 $id = $_GET['id']; // get id through query string
-$sql = mysqli_query($connect,"select * from Produits where id='$id'"); // select query
-$row = mysqli_fetch_array($sql); // fetch data
+//$sql = mysqli_query($connect,"select * from Produits where id='$id'"); // select query
+//$row = mysqli_fetch_array($sql); // fetch data
 
 $sql1 = "SELECT stock FROM Produits WHERE id='".$id."'";
 $result = mysqli_query($connect, $sql1);
