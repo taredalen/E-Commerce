@@ -1,6 +1,9 @@
 <?php
 require_once 'connection.php';
 require_once 'db.php';
+
+$errorMsg = $_GET['errorMsg'];
+$successMsg = $_GET['successMsg'];
 ?>
 
 <!DOCTYPE html>
@@ -59,13 +62,11 @@ require_once 'db.php';
             <hr style="border-top:1px dotted #ccc;"/>
             <?php
             if(isset($errorMsg)) {
-                foreach($errorMsg as $error) {
-                    ?>
-                    <div class="alert alert-danger">
-                        <strong><?php echo $error; ?></strong>
-                    </div>
-                    <?php
-                }
+                ?>
+                <div class="alert alert-danger">
+                    <strong><?php echo $errorMsg; ?></strong>
+                </div>
+                <?php
             }
             if(isset($successMsg)) {
                 ?>
@@ -78,6 +79,7 @@ require_once 'db.php';
             <form method="POST" action="">
                 <label for="cat" class="text-info"  style="color: #19b9cc">Catégorie</label>
                 <select class="form-control" name="cat" id="cat">
+                    <option value="Tout">Tout</option>
                     <option value="Autre">Autre</option>
                     <option value="pc">PC</option>
                     <option value="imprimante">Imprimante</option>
@@ -86,6 +88,7 @@ require_once 'db.php';
 
                 <label for="marque" class="text-info"  style="color: #19b9cc">Marque</label>
                 <select class="form-control" name="marque" id="marque">
+                    <option value="Tout">Tout</option>
                     <option value="Autre">Autre</option>
                     <option value="HP">HP</option>
                     <option value="cannon">Cannon</option>
@@ -120,7 +123,18 @@ require_once 'db.php';
                 if(ISSET($_POST['recherche'])){
                     $categorie = $_POST['cat'];
                     $marque = $_POST['marque'];
-                    $sql = "SELECT * FROM Produits WHERE cat='{$categorie}' AND marque='{$marque}'";
+                    if($categorie!='Tout' && $marque!='Tout'){
+                        $sql = "SELECT * FROM Produits WHERE cat='{$categorie}' AND marque='{$marque}'";
+                    }
+                    elseif($categorie!='Tout' && $marque='Tout'){
+                        $sql = "SELECT * FROM Produits WHERE cat='{$categorie}'";
+                    }
+                    elseif($categorie='Tout' && $marque!='Tout'){
+                        $sql = "SELECT * FROM Produits WHERE marque='{$marque}'";
+                    }
+                    elseif($categorie='Tout' && $marque='Tout'){
+                        $sql = "SELECT * FROM Produits";
+                    }
                 }
                 else{
                     $sql = "SELECT * FROM Produits";
@@ -146,7 +160,7 @@ require_once 'db.php';
                             <button type="submit" name="modifier" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='edit_product.php?id=<?php echo $row['id']; ?>'">Modifier</button>
                         </th>
                         <th class="text-center col-md-1">
-                            <button type="submit" name="supprimer" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='delete_product.php?id=<?php echo $row['id']; ?>'" value="<?php echo $row["id"]; ?>">Supprimer</button>
+                            <button type="submit" name="supprimer" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='delete_product.php?id=<?php echo $row['id']; ?>'">Supprimer</button>
                         </th>
                     </tr>
                     <?php

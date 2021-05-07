@@ -13,23 +13,23 @@ if (mysqli_num_rows($result) > 0){
     while($row = mysqli_fetch_assoc($result)){
         if($row["stock"]>0){
             mysqli_close($connect); // Close connection
-            header("location:liste_produit.php"); // redirects to liste_produit page
+            $errorMsg ="Le stock de ce produit n'est pas nul. Il ne peut dont pas être supprimé.";
+            header("location:liste_produit.php?errorMsg=$errorMsg"); // redirects to liste_produit page
             exit;
-            $errorMsg[] ="Le stock de ce produit n'est pas nul. Il ne peut dont pas être supprimé.";
         }
         else{
             $result1 = mysqli_query($connect,"DELETE FROM Produits WHERE id='".$id."'");
             if($result1=true) {
                 mysqli_close($connect); // Close connection
-                header("location:liste_produit.php"); // redirects to liste_produit page
+                $successMsg = "Produit supprimé avec succès";
+                header("location:liste_produit.php?successMsg=$successMsg"); // redirects to liste_produit page
                 exit;
-                $successMsg = "Produits supprimés avec succès";
             }
             else {
                 mysqli_close($connect); // Close connection
-                header("location:liste_produit.php"); // redirects to liste_produit page
+                $errorMsg="Erreur";
+                header("location:liste_produit.php?errorMsg=$errorMsg"); // redirects to liste_produit page
                 exit;
-                $errorMsg[]="Erreur";
             }
         }
     }
