@@ -15,7 +15,7 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
     $marque 	    = strip_tags($_REQUEST['marque']);
     $stock	        = strip_tags($_REQUEST['stock']);
     $prix		    = strip_tags($_REQUEST['prix']);
-    $tva		    = strip_tags($_REQUEST['tva']);
+    $tva		    = strip_tags($_REQUEST['TVA']);
     $descr	        = strip_tags($_REQUEST['descr']);
 
     if(empty($libelle)){
@@ -168,8 +168,8 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
                             <input type="number" class="form-control" id="prix" name="prix" placeholder="12,99"/>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="tva" class="text-info" style="color: #19b9cc">TVA*</label>
-                            <input type="number" class="form-control" id="tva" name="tva" placeholder="20"/>
+                            <label for="TVA" class="text-info" style="color: #19b9cc">TVA*</label>
+                            <input type="number" class="form-control" id="TVA" name="TVA" placeholder="20"/>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="descr" class="text-info" style="color: #19b9cc">Description du produit*</label>
