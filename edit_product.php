@@ -14,6 +14,10 @@ $sql = mysqli_query($connect,"select * from Produits where id='$id'"); // select
 $row = mysqli_fetch_array($sql); // fetch data
 
 if(isset($_POST['update'])) {// when click on Update button
+    /*$previous = array();
+    array_push($previous, $_SERVER['HTTP_REFERER']);
+    echo var_dump($previous);*/
+
     $libelle = strip_tags($_POST['libelle']);
     $cat     = strip_tags($_POST['cat']);
     $marque  = strip_tags($_POST['marque']);
@@ -25,6 +29,7 @@ if(isset($_POST['update'])) {// when click on Update button
     $result = mysqli_query($connect,"update Produits set libelle='$libelle', cat='$cat', marque='$marque', stock='$stock', prix='$prix', tva='$tva', descr='$descr' where id='$id'");
     if($result=true) {
         $successMsg = "Produit modifié avec succès";
+        //$redirects_to = end($previous);
         header("refresh:2; gestion_produit.php");
     }
     else {
