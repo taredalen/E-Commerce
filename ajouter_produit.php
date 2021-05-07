@@ -28,7 +28,7 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
         $errorMsg[]="Veuillez entrer le prix du produit";
     }
     if(empty($tva)){
-        $errorMsg[]="Veuillez entrer la TVA applicable au produit";
+        $errorMsg[]="Veuillez entrer la TVA applicable au produit" ;
     }
     if(empty($descr)){
         $errorMsg[]="Veuillez entrer la description du produit";
