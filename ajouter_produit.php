@@ -43,6 +43,7 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
         mysqli_stmt_bind_param($stmt, "ssssiiis",$refe, $libelle, $cat, $marque, $stock, $prix, $tva, $descr);
         if($stmt->execute()) {
             $successMsg = "Produit ajouté avec succès";
+            header("refresh:2; gestion_produit.php");
         }
         else {
             $errorMsg[]="Erreur";
@@ -60,11 +61,9 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/scrollbar.css" rel="stylesheet" type="text/css"/>
-
 </head>
 
 <body>
-
 <!--=========== Header ============-->
 <div class="bg-color-sky-light">
     <header class="header">

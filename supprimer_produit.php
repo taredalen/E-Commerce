@@ -22,6 +22,7 @@ if(isset($_POST['supprimer'])){
                         $result = mysqli_query($connect,"DELETE FROM Produits WHERE id='".$del_id."'");
                         if($result=true) {
                             $successMsg = "Produits supprimés avec succès";
+                            header("refresh:2; gestion_produit.php");
                         }
                         else {
                             $errorMsg[]="Erreur";

@@ -25,6 +25,7 @@ if(isset($_POST['update'])) {// when click on Update button
     $result = mysqli_query($connect,"update Produits set libelle='$libelle', cat='$cat', marque='$marque', stock='$stock', prix='$prix', tva='$tva', descr='$descr' where id='$id'");
     if($result=true) {
         $successMsg = "Produit modifié avec succès";
+        header("refresh:2; gestion_produit.php");
     }
     else {
         $errorMsg[]="Erreur";
