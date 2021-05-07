@@ -49,7 +49,7 @@ try {
                          stock INTEGER,
                          prix FLOAT,
                          TVA INTEGER,
-                         descr VARCHAR(500) NOT NULL )";
+                         descr VARCHAR(500) NOT NULL)";
     $db->exec($sql5);
 
 }
