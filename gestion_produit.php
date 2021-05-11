@@ -36,40 +36,76 @@ $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
                 <div class="collapse navbar-collapse nav-collapse">
                     <div class="menu-container">
-                        <ul class="navbar-nav navbar-nav-right">
-                            <li class="nav-item">
-                                <a class="nav-item-child" href="gestion_admin.php"> Accueil </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-item-child active" href="deconnexion.php">
-                                    Déconnexion
-                                </a>
-                            </li>
-                        </ul>
+	                    <ul class="navbar-nav navbar-nav-right">
+		                    <li class="nav-item">
+			                    <a class="nav-item-child" href="gestion_admin.php">Accueil</a>
+		                    </li>
+		                    <li class="nav-item">
+			                    <a class="nav-item-child active" href="gestion_produit.php">Géstion Produit</a>
+		                    </li>
+		                    <li class="nav-item">
+			                    <a class="nav-item-child" href="consulter_commentaires.php">Consultation Commentaires</a>
+		                    </li>
+		                    <li class="nav-item">
+			                    <a class="nav-item-child" href="deconnexion.php">Déconnexion</a>
+		                    </li>
+	                    </ul>
                     </div>
                 </div>
-                <h3 style="color: #19b9cc" align="center"> Administrateur
-                </h3>
             </div>
         </nav>
     </header>
 </div>
 
 <!--=========== Page ============-->
-<div class="section-seperator">
-    <div class="content-md container">
-        <div class="col well">
-            <h3 class="text-primary">Gestion de produits</h3>
-            <hr style="border-top:1px dotted #ccc;"/>
-            <h4> Veuillez sélectionner la fonctionnalité désirée pour la gestion de produits :</h4>
-            <div style="align-content: center">
-                <button class="btn btn-info" name="display" onclick="location.href = 'ajouter_produit.php';">Ajouter un produit</button>
-                <button class="btn btn-info" name="display" onclick="location.href = 'modifier_produit.php';">Modifier un produit</button>
-                <button class="btn btn-info" name="display" onclick="location.href = 'supprimer_produit.php';">Supprimer un produit</button>
-                <button class="btn btn-info" name="display" onclick="location.href = 'liste_produit.php';"">Consulter la liste des produits</button>
-            </div>
-        </div>
-    </div>
+
+<div class="content-md container">
+	<div class="col well">
+		<div class="form-group row">
+			<form method="POST" action="">
+				<div class="col-xs-3">
+					<button class="form-control btn-info" name="display_products">Consulter la liste des produits</button>
+				</div>
+				<div class="col-xs-3">
+					<button class="form-control btn-info" name="add_product">Ajouter produit</button>
+				</div>
+				<div class="col-xs-3">
+					<button class="form-control btn-info" name="set_product">Modifier produit</button>
+				</div>
+				<div class="col-xs-3">
+					<button class="form-control btn-info" name="del_product">Supprimer plusieurs produits</button>
+				</div>
+			</form>
+		</div>
+
+		<?php
+	       if(isset($errorMsg)) {
+	       	?>
+		       <div class="alert alert-danger"><strong><?php echo $errorMsg; ?></strong></div>
+		       <?php
+	        }
+	        if(isset($successMsg)) {
+		        ?>
+		        <div class="alert alert-success"><strong><?php echo $successMsg; ?></strong></div>
+		        <?php
+	        }
+	        ?>
+	</div>
+
+	<?php
+	if(ISSET($_POST['display_products'])) {
+		include_once  'liste_produit.php';
+	}
+	if(ISSET($_POST['add_product'])) {
+		include_once 'ajouter_produit.php';
+	}
+	if(ISSET($_POST['set_product'])) {
+		include_once 'modifier_produit.php';
+	}
+	if(ISSET($_POST['del_product'])) {
+		include_once 'supprimer_produit.php';
+	}
+	?>
 </div>
 </body>
 
