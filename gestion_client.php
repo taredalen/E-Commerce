@@ -24,7 +24,7 @@
 							<a class="nav-item-child active" href="gestion_client.php">Accueil</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-item-child">Commande</a>
+							<a class="nav-item-child" href="gestion_commande.php">Commande</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-item-child" href="ajouter_commentaire.php">Commentaires</a>

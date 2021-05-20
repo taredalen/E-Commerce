@@ -40,7 +40,7 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
         $sql = "INSERT INTO Produits (refe, libelle, cat, marque, stock, prix, tva, descr) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($connect,$sql);
         $refe = uniqid($refe);
-        mysqli_stmt_bind_param($stmt, "ssssiiis",$refe, $libelle, $cat, $marque, $stock, $prix, $tva, $descr);
+        mysqli_stmt_bind_param($stmt, "ssssidis",$refe, $libelle, $cat, $marque, $stock, $prix, $tva, $descr);
         if($stmt->execute()) {
             $successMsg = "Produit ajouté avec succès";
             header("refresh:2; gestion_produit.php");
@@ -173,6 +173,7 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
                         <div class="form-group col-md-4">
                             <label for="descr" class="text-info" style="color: #19b9cc">Description du produit*</label>
                             <textarea id="descr" name="descr" placeholder="..."></textarea>
+                            <button type="button" name="ajout_fichier" class="form-control btn-info">Sélectionner fichier</button>
                         </div>
                     </div>
                     <button type="submit" name="btn_add" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Ajouter un produit</button>
