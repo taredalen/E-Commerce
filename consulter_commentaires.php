@@ -1,3 +1,34 @@
+<?php
+$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
+$id = strip_tags($_REQUEST["id"]);
+
+if(isset($_REQUEST['save'])) {
+
+	$reponse = strip_tags($_REQUEST["reponse"]);
+	$stmt = $connect->prepare("UPDATE Commentaire SET reponse=? WHERE id=?");
+	$stmt->bind_param("si", $reponse, $id);
+	if ($stmt->execute()) {
+		$message= "Les modifications ont été enregistrées successivement dans la base de données";
+		$var ="all";
+		$stmt->close();
+	} else {
+		$message="Erreur pendant l'enregistrement des modifications";
+	}
+}
+if(isset($_REQUEST['delete'])) {
+
+	$stmt = $connect->prepare("DELETE FROM Commentaire WHERE id = ?");
+	$stmt->bind_param("i", $id);
+
+	if ($stmt->execute()) {
+		$message= "Le commentaire a été supprimé successivement de la base de données ";
+		$stmt->close();
+	} else {
+		$message="Erreur pendant la suppression ";
+	}
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +58,7 @@
 							<a class="nav-item-child" href="gestion_admin.php">Accueil</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-item-child"  href="gestion_produit.php">Gérer Produit</a>
+							<a class="nav-item-child"  href="gestion_produit.php">Géstion Produit</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-item-child active" href="consulter_commentaires.php">Consultation Commentaires</a>
@@ -62,19 +93,13 @@
 			</div>
 			<hr style="border-top:1px dotted #ccc;"/>
 			<?php
-			if(isset($_GET["message"])){
-				$message = $_GET["message"];
+			if(isset($message)){
 				?>
 				<div class="alert alert-success" align="center">
 					<strong><?php echo $message; ?></strong>
 				</div>
 				<?php
-				if(isset($_GET["param"])=='all'){
-					header("refresh:2; consulter_commentaires.php");
-				}
-				else if(isset($_GET["param"])=='one'){
-					$param = 'one';
-				}
+				//header("refresh:3; consulter_commentaires.php");
 			}
 			?>
 
@@ -83,19 +108,16 @@
 				<tr>
 					<th class="text-center col-sm-1">Prenom</th>
 					<th class="text-center col-sm-1">Nom</th>
-					<th class="text-center">Mail</th>
-					<th class="text-center">Commentaire</th>
-					<th class="text-center">Réponse</th>
-
+					<th class="text-center col-sm-2">Mail</th>
+					<th class="text-center col-sm-3">Commentaire</th>
+					<th class="text-center col-sm-3">Réponse</th>
+					<th class="text-center col-sm-1">Modifier</th>
 				</tr>
 				</thead>
 				<tbody style="background-color:#ffffff;">
 
 				<?php
-				$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
-
-				if(ISSET($_POST['display_all']) OR isset($_GET["message"])){
-
+				if(ISSET($_POST['display_all'])  ){
 					$stmt = $connect->prepare("SELECT * FROM Commentaire");
 					$stmt->execute();
 					$result = $stmt->get_result();
@@ -106,12 +128,19 @@
 							<td class="text-center"><?php echo $row['prenom']?></td>
 							<td class="text-center"><?php echo $row['nom']?>  </td>
 							<td class="text-center"><?php echo $row['mail']?></td>
-							<td class="pt-3-half "><?php echo $row['commentaire']?></td>
-							<th class="text-center" contenteditable="true"></th>
-							<td>
-								<a href=ajouter_reponse.php?id=<?php echo $row["id"]?>&param=all><button class="btn btn-info">✓</button></a>
-								<a href=suppression.php?id=<?php echo $row["id"]?>&param=all><button class="btn btn-info">✕</button></a>
-							</td>
+							<th class="text-center col-sm-1" contenteditable="false">
+								<textarea contenteditable="false" class="form-control" rows ="3"><?php echo $row['commentaire']?></textarea>
+							</th>
+							<form method="GET" action="consulter_commentaires.php">
+								<th class="text-center col-sm-1" contenteditable="true">
+									<textarea class="form-control" rows ="3" name="reponse" id="reponse"><?php echo $row['reponse']?></textarea>
+									<input type='hidden' name='id' value="<?php echo $row["id"]?>"/>
+								</th>
+								<td>
+								    <button class="btn btn-info" type="submit" name="save">✓</button>
+									<button class="btn btn-info" type="submit" name="delete">✕</button>
+								</td>
+							</form>
 						</tr>
 						<?php
 					}
@@ -130,12 +159,19 @@
 							<td class="text-center"><?php echo $row['prenom']?></td>
 							<td class="text-center"><?php echo $row['nom']?>  </td>
 							<td class="text-center"><?php echo $row['mail']?></td>
-							<td class="pt-3-half "><?php echo $row['commentaire']?></td>
-							<th class="text-center" contenteditable="true"></th>
-							<td>
-								<a href=ajouter_reponse.php?id=<?php echo $row["id"]?>&param=one><button class="btn btn-info">✓</button></a>
-								<a href=suppression.php?id=<?php echo $row["id"]?>&param=one> <button class="btn btn-info">✕</button></a>
-							</td>
+							<th class="text-center col-sm-1" contenteditable="false">
+								<textarea contenteditable="false" class="form-control" rows ="3"><?php echo $row['commentaire']?></textarea>
+							</th>
+							<form method="GET" action="consulter_commentaires.php">
+								<th class="text-center col-sm-1" contenteditable="true">
+									<textarea class="form-control" rows ="3" name="reponse" id="reponse"><?php echo $row['reponse']?></textarea>
+									<input type='hidden' name='id' value="<?php echo $row["id"]?>"/>
+								</th>
+								<td>
+									<button class="btn btn-info" type="submit" name="save">✓</button>
+									<button class="btn btn-info" type="submit" name="delete">✕</button>
+								</td>
+							</form>
 						</tr>
 						<?php
 					}
@@ -148,7 +184,7 @@
 </div>
 
 <div class="bg-color-sky-light">
-	<footer class="footer" id="footer">
+	<footer class="footer fixed-bottom " id="footer">
 		<div class="content container">
 			<div class="row">
 				<div class="col-xs-6">

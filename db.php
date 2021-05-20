@@ -52,6 +52,20 @@ try {
                          descr VARCHAR(500) NOT NULL)";
     $db->exec($sql5);
 
+    $sql6 = "CREATE TABLE if not exists Commande(
+                         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                         nom VARCHAR(500) NOT NULL,
+                         prenom VARCHAR(500) NOT NULL,
+                         mail VARCHAR(500) NOT NULL,
+                         rue VARCHAR(500) NOT NULL,
+                         ville VARCHAR(500) NOT NULL,
+                         code VARCHAR(500) NOT NULL,
+                         refe VARCHAR(500) NOT NULL,
+                         libelle VARCHAR(500) NOT NULL,
+                         quantité FLOAT,
+                         prix FLOAT";
+    $db->exec($sql6);
+
 }
 catch (PDOEXCEPTION $e) {
 }
