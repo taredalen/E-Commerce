@@ -1,6 +1,6 @@
 <?php
 require_once 'connection.php';
-require_once 'db.php';
+require_once  'db.php';
 
 $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 if(isset($_POST['supprimer'])){

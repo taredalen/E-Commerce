@@ -192,7 +192,7 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
                 <div class="col-xs-6">
                     <p class="margin-b-20"> 0825 00 41 23</p>
                 </div>
-                <div class="col-xs-6 text-right">
+                <div  class="col-xs-6 text-right">
                     <p class="margin-b-20"> HP Inc. 14, rue de la Verrerie – CS 40012, 92197 Meudon CEDEX France</p>
                 </div>
             </div>
