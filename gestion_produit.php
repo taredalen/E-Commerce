@@ -77,24 +77,11 @@ $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
 				</div>
 			</form>
 		</div>
-
-		<?php
-	       if(isset($errorMsg)) {
-	       	?>
-		       <div class="alert alert-danger"><strong><?php echo $errorMsg; ?></strong></div>
-		       <?php
-	        }
-	        if(isset($successMsg)) {
-		        ?>
-		        <div class="alert alert-success"><strong><?php echo $successMsg; ?></strong></div>
-		        <?php
-	        }
-	        ?>
 	</div>
 
 	<?php
 	if(ISSET($_POST['display_products'])) {
-		include_once  'liste_produit.php';
+		include_once 'liste_produit.php';
 	}
 	if(ISSET($_POST['add_product'])) {
 		include_once 'ajouter_produit.php';
