@@ -13,9 +13,15 @@ $select_stmt = $db->prepare("SELECT * FROM Client WHERE id=:id");
 $select_stmt->execute(array(":id"=>$id));
 $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
 
+$naissance = $row['naissance'];
+if($naissance == NULL){
+	$date_format = NULL;
+}
+else{
+	$date = Datetime::createFromFormat('Y-m-d', $naissance);
+	$date_format = $date->format('d-m-Y');
+}
 
-$date = Datetime::createFromFormat('Y-m-d', $row['naissance']);
-$date_format=$date->format('d-m-Y');
 
 if(isset($_POST['btn_save1'])){
 	$nom	    = strip_tags($_POST['nom']);
@@ -25,7 +31,6 @@ if(isset($_POST['btn_save1'])){
 	$rue	    = strip_tags($_POST['rue']);
 	$ville		= strip_tags($_POST['ville']);
 	$code		= strip_tags($_POST['code']);
-
 
 	if(empty($nom)){
 		$errorMsg[]="Veuillez entrer votre nom";
@@ -52,9 +57,11 @@ if(isset($_POST['btn_save1'])){
 	else {
 		try {
 			if(!isset($errorMsg)) {
-				$insert_stmt=$db->prepare("UPDATE Client SET nom=?, prenom=?, mail=?, numero=?, rue=?, ville=?, code=?"); //sql insert query
+				$insert_stmt=$db->prepare("UPDATE Client SET nom=?, prenom=?, mail=?, numero=?, rue=?, ville=?, code=? WHERE id='$id'"); //sql insert query
 				if($insert_stmt->execute(array($nom, $prenom, $mail, $numero, $rue, $ville, $code))){
 					$registerMsg="Les informations de profil modifiées avec succès.";
+					header("refresh:3; modifier_profil.php");
+
 				}
 			}
 		}
@@ -72,11 +79,19 @@ if(isset($_POST['btn_save2'])) {
 
 	try {
 		if(!isset($errorMsg3)) {
-			$date_format=$date->format('Y-m-d');
 
-			$insert_stmt=$db->prepare("UPDATE Client SET situation=?, naissance=?, sexe=?");		//sql insert query
+			if($naissance == ''){
+				$date_format = NULL;
+			}
+			else{
+				$date = Datetime::createFromFormat('d-m-Y', $naissance);
+				$date_format = $date->format('Y-m-d');
+			}
+
+			$insert_stmt=$db->prepare("UPDATE Client SET situation=?, naissance=?, sexe=?  WHERE id='$id'");		//sql insert query
 			if($insert_stmt->execute(array($situation, $date_format, $sexe))){
 				$registerMsg2="Les informations de profil modifiées avec succès.";
+				header("refresh:3; modifier_profil.php");
 			}
 		}
 	} catch(PDOException $e) {}
@@ -105,9 +120,10 @@ if(isset($_POST['btn_save3'])) {
 			if(!isset($errorMsg3)) {
 				$final_password = password_hash($new_password_2, PASSWORD_DEFAULT); //encrypt password using password_hash()
 
-				$insert_stmt=$db->prepare("UPDATE Client SET password=?");		//sql insert query
+				$insert_stmt=$db->prepare("UPDATE Client SET password=?  WHERE id='$id'");		//sql insert query
 				if($insert_stmt->execute(array($final_password))){
 					$registerMsg3="Le mot de passe est modifié avec succès.";
+					header("refresh:3; modifier_profil.php");
 				}
 			}
 		} catch(PDOException $e) {

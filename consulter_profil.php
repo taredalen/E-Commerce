@@ -176,6 +176,5 @@ if(isset($_SESSION['user_login'])) {
 	</footer>
 </div>
 <!--========== END FOOTER ==========-->
-</body>
 </html>
 

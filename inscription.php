@@ -18,8 +18,6 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
     $password	= strip_tags($_REQUEST['password']);
     $password2	= strip_tags($_REQUEST['password2']);
 
-    $date = Datetime::createFromFormat('d-m-Y', $naissance);
-
     if(empty($nom)){
         $errorMsg[]="Veuillez entrer votre nom";
     }
@@ -53,7 +51,7 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
 
     else {
         try {
-            $select_stmt=$db->prepare("SELECT mail FROM Client WHERE mail=:mail"); // sql select query
+            $select_stmt=$db->prepare("SELECT mail FROM Client WHERE mail=:mail");
 
             $select_stmt->execute(array(':mail'=>$mail)); //execute query
             $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
@@ -62,7 +60,14 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
                 $errorMsg[]="Le compte relié avec cet adresse mail existe déjà";
             }
             else if(!isset($errorMsg)) {
-                $date_format=$date->format('Y-m-d');
+
+	            if(empty($naissance)) {
+		            $date_format = NULL;
+	            }
+	            if(!empty($naissance)) {
+		            $date = Datetime::createFromFormat('d-m-Y', $naissance);
+		            $date_format=$date->format('Y-m-d');
+	            }
                 $new_password = password_hash($password, PASSWORD_DEFAULT); //encrypt password using password_hash()
 
                 $insert_stmt=$db->prepare("INSERT INTO Client(nom, prenom, mail, numero, rue, ville, code, situation, naissance, sexe, password)

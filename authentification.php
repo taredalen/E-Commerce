@@ -34,7 +34,7 @@ if(isset($_REQUEST['btn_login'])) {
 
 				if ($select_stmt->rowCount() > 0) {
 					if ($mail == $row["mail"]) {
-						if ($password == $row["password"]) {
+						if (password_verify($password, $row["password"])) {
 							$_SESSION["user_login"] = $row["id"];    //session name is "user_login"
 							$loginMsg = "Connexion réussie...";        //user login success message
 							header("refresh:2; gestion_client.php");
@@ -126,62 +126,62 @@ if(isset($_REQUEST['btn_login'])) {
 
 <div class="scrollbar scrollbar-primary">
 	<div class="force-overflow">
-<div class="section-seperator">
-	<div class="content-md container">
-		<div class="row">
-			<div class="col-md-7 col-sm-7">
-				<img class="img-responsive" src="img/desk.png" alt="Welcome Image">
-			</div>
-			<div class="col-md-5 col-sm-7">
-				<h2>Authentification</h2>
-				<p>Veuillez vous connecter pour accéder aux fonctionnalités du site.
-					Si vous n'avez pas de compte <a href="inscription.php"><span style="color: #19b9cc">cliquez ici</span></a>
-					pour effectuer l'inscription.
-				</p>
-				<?php
-				if(isset($errorMsg))
-				{
-					foreach($errorMsg as $error)
-					{
-						?>
-						<div class="alert alert-danger">
-							<strong><?php echo $error; ?></strong>
-						</div>
+		<div class="section-seperator">
+			<div class="content-md container">
+				<div class="row">
+					<div class="col-md-7 col-sm-7">
+						<img class="img-responsive" src="img/desk.png" alt="Welcome Image">
+					</div>
+					<div class="col-md-5 col-sm-7">
+						<h2>Authentification</h2>
+						<p>Veuillez vous connecter pour accéder aux fonctionnalités du site.
+							Si vous n'avez pas de compte <a href="inscription.php"><span style="color: #19b9cc">cliquez ici</span></a>
+							pour effectuer l'inscription.
+						</p>
 						<?php
-					}
-				}
-				if(isset($loginMsg))
-				{
-					?>
-					<div class="alert alert-success">
-						<strong><?php echo $loginMsg; ?></strong>
-					</div>
-					<?php
-				}
-				?>
+						if(isset($errorMsg))
+						{
+							foreach($errorMsg as $error)
+							{
+								?>
+								<div class="alert alert-danger">
+									<strong><?php echo $error; ?></strong>
+								</div>
+								<?php
+							}
+						}
+						if(isset($loginMsg))
+						{
+							?>
+							<div class="alert alert-success">
+								<strong><?php echo $loginMsg; ?></strong>
+							</div>
+							<?php
+						}
+						?>
 
-				<form method="post" action="authentification.php">
+						<form method="post" action="authentification.php">
 
-					<div class="margin-b-20">
-						<input class="form-check-input" type="radio" name="profile" id="inlineRadio1" value="admin">
-						<label class="form-check-label" for="admin" style="color: #19b9cc;  margin-right: 50px">admin</label>
+							<div class="margin-b-20">
+								<input class="form-check-input" type="radio" name="profile" id="inlineRadio1" value="admin">
+								<label class="form-check-label" for="admin" style="color: #19b9cc;  margin-right: 50px">admin</label>
 
-						<input class="form-check-input" type="radio" name="profile" id="inlineRadio2" value="client">
-						<label class="form-check-label" for="client" style="color: #19b9cc">client</label>
+								<input class="form-check-input" type="radio" name="profile" id="inlineRadio2" value="client">
+								<label class="form-check-label" for="client" style="color: #19b9cc">client</label>
 
+							</div>
+							<div class="margin-b-20">
+								<input type="text" class="form-control" placeholder="Login (adresse mail)" name="mail">
+							</div>
+							<div class="margin-b-20">
+								<input type="password" class="form-control" placeholder="Mot de passe" name="password">
+							</div>
+							<button type="submit" name="btn_login" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Connection</button>
+						</form>
 					</div>
-					<div class="margin-b-20">
-						<input type="text" class="form-control" placeholder="Login (adresse mail)" name="mail">
-					</div>
-					<div class="margin-b-20">
-						<input type="password" class="form-control" placeholder="Mot de passe" name="password">
-					</div>
-					<button type="submit" name="btn_login" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Connection</button>
-				</form>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
 	</div>
 </div>
 
