@@ -10,6 +10,19 @@ $successMsg = $_GET['successMsg'];
 	<h3 class="text-primary" style="color: #19b9cc" align="center">Consulter la liste des produits</h3>
 	<hr style="border-top:1px dotted #ccc;"/>
 
+    <?php
+    if(isset($errorMsg)) {
+        ?>
+        <div class="alert alert-danger"><strong><?php echo $errorMsg; ?></strong></div>
+        <?php
+    }
+    if(isset($successMsg)) {
+        ?>
+        <div class="alert alert-success"><strong><?php echo $successMsg; ?></strong></div>
+        <?php
+    }
+    ?>
+
 	<div class="form-group row">
 		<form method="POST" action="">
 			<div class="col-xs-4">
@@ -114,6 +127,5 @@ $successMsg = $_GET['successMsg'];
 	</table>
 	<?php
 		//header("refresh:3; consulter_commentaires.php");
-
 		?>
 </div>
