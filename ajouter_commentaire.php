@@ -1,9 +1,5 @@
 <?php
 
-require_once  'connection.php';
-require_once 'db.php';
-
-
 session_start();
 
 if(!isset($_SESSION['user_login'])) {
@@ -40,7 +36,6 @@ if(isset($_REQUEST['btn'])) {
 			$row = $result->fetch_assoc();
 
 			if($mail == $row["mail"]){
-
 				$stmt = $connect->prepare("INSERT INTO Commentaire (nom, prenom, mail, commentaire) VALUES (?, ?, ?, ?)");
 				$stmt->bind_param("ssss",$nom, $prenom, $mail, $commentaire);
 				if($stmt->execute()) {
@@ -55,8 +50,6 @@ if(isset($_REQUEST['btn'])) {
 	}
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -104,8 +97,6 @@ if(isset($_REQUEST['btn'])) {
 	</nav>
 	</div>
 </header>
-
-
 
 <div class="scrollbar scrollbar-primary">
 	<div class="force-overflow">
