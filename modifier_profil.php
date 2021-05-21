@@ -305,7 +305,7 @@ if(isset($_POST['btn_save3'])) {
 							<select class="form-control" name="situation" id="situation">
 
 								<?php
-								$s1 = $s2 = $s3 = $s4 = $s5 = $s6 = $s7 = '';
+								$s1 = $s2 = $s3 = $s4 = $s5 = $s6 = $s7 = $s8= '';
 								switch ($row['situation']) {
 									case 'Célibataire':
 										$s1 = 'selected';
@@ -325,8 +325,11 @@ if(isset($_POST['btn_save3'])) {
 									case 'Veuf(ve)':
 										$s6 = 'selected';
 										break;
-									default :
+									case 'Autre':
 										$s7 = 'selected';
+										break;
+									default :
+										$s8 = 'selected';
 										break;
 								} ?>
 
@@ -337,13 +340,14 @@ if(isset($_POST['btn_save3'])) {
 								<option value="Séparé(e)" <?= $s5 ?>>Séparé(e)</option>
 								<option value="Veuf(ve)" <?= $s6 ?>>Veuf(ve)</option>
 								<option value="Autre" <?= $s7 ?>>Autre</option>
+								<option value="---" <?= $s8 ?> >---</option>
 							</select>
 						</div>
 						<div class="form-group col-md-2">
 							<label for="sexe" class="text-info" style="color: #19b9cc">Sexe</label>
 							<select class="form-control" name="sexe" id="sexe">
 								<?php
-								$s1 = $s2 = $s3 = '';
+								$s1 = $s2 = $s3 = $s4 ='';
 								switch ($row['sexe']) {
 									case 'Femme':
 										$s1 = 'selected';
@@ -351,10 +355,14 @@ if(isset($_POST['btn_save3'])) {
 									case 'Homme':
 										$s2 = 'selected';
 										break;
-									default :
+									case 'Autre':
 										$s3 = 'selected';
 										break;
+									default :
+										$s4 = 'selected';
+										break;
 								} ?>
+								<option value="---" <?= $s4 ?> >---</option>
 								<option value="Autre" <?= $s3 ?> >Autre</option>
 								<option value="Homme" <?= $s2 ?> >Homme</option>
 								<option value="Femme" <?= $s1 ?> >Femme</option>

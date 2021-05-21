@@ -1,10 +1,7 @@
 <?php
 
-require_once 'connection.php';
-require_once 'db.php';
-
-
 session_start();
+$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 
 if(isset($_SESSION["user_login"])){
 	header("location: gestion_client.php");
@@ -14,7 +11,6 @@ if(isset($_REQUEST['btn_login'])) {
 	$mail		= strip_tags($_REQUEST["mail"]);
 	$password	= strip_tags($_REQUEST["password"]);
 	$profile	= strip_tags($_REQUEST["profile"]);
-
 
 	if(empty($mail)){
 		$errorMsg[]="Veillez entrer votre mail";
@@ -28,11 +24,17 @@ if(isset($_REQUEST['btn_login'])) {
 	else {
 		try {
 			if($profile == 'client') {
-				$select_stmt = $db->prepare("SELECT * FROM Client WHERE mail=:mail"); //sql select query
-				$select_stmt->execute(array(':mail' => $mail));    //execute query with bind parameter
-				$row = $select_stmt->fetch(PDO::FETCH_ASSOC);
+				//$select_stmt = $db->prepare("SELECT * FROM Client WHERE mail=:mail"); //sql select query
+				//$select_stmt->execute(array(':mail' => $mail));    //execute query with bind parameter
+				//$row = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
-				if ($select_stmt->rowCount() > 0) {
+				$stmt = $connect->prepare("SELECT * FROM Client WHERE mail=?");
+				$stmt->bind_param("s", $mail);
+				$stmt->execute();
+				$result = $stmt->get_result();
+				$row = $result->fetch_assoc();
+
+				if ($row) {
 					if ($mail == $row["mail"]) {
 						if (password_verify($password, $row["password"])) {
 							$_SESSION["user_login"] = $row["id"];    //session name is "user_login"
@@ -50,11 +52,17 @@ if(isset($_REQUEST['btn_login'])) {
 			}
 
 			if($profile == 'admin') {
-				$select_stmt = $db->prepare("SELECT * FROM Administrateur WHERE mail=:mail"); //sql select query
-				$select_stmt->execute(array(':mail' => $mail));    //execute query with bind parameter
-				$row = $select_stmt->fetch(PDO::FETCH_ASSOC);
+				//$select_stmt = $db->prepare("SELECT * FROM Administrateur WHERE mail=:mail"); //sql select query
+				//$select_stmt->execute(array(':mail' => $mail));    //execute query with bind parameter
+				//$row = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
-				if ($select_stmt->rowCount() > 0) {
+				$stmt = $connect->prepare("SELECT * FROM Administrateur WHERE mail=?");
+				$stmt->bind_param("s", $mail);
+				$stmt->execute();
+				$result = $stmt->get_result();
+				$row = $result->fetch_assoc();
+
+				if ($row) {
 					if ($mail == $row["mail"]) {
 						if ($password == $row["password"]) {
 							$_SESSION["admin_login"] = $row["id"];    //session name is "admin_login"

@@ -220,7 +220,8 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
                         <div class="form-group col-md-4">
                             <label for="situation" class="text-info" style="color: #19b9cc">Situation Familiale </label>
                             <select class="form-control" name="situation" id="situation">
-                                <option value="Autre">Autre</option>
+	                            <option value="---">---</option>
+	                            <option value="Autre">Autre</option>
                                 <option value="Célibataire">Célibataire</option>
                                 <option value="Marié(e)">Marié(e)</option>
                                 <option value="Pacsé(e)">Pacsé(e)</option>
@@ -232,7 +233,8 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
                         <div class="form-group col-md-2">
                             <label for="sexe" class="text-info" style="color: #19b9cc">Sexe</label>
                             <select class="form-control" name="sexe" id="sexe">
-                                <option value="Autre">Autre</option>
+	                            <option value="---">---</option>
+	                            <option value="Autre">Autre</option>
                                 <option value="Homme">Homme</option>
                                 <option value="Femme">Femme</option>
                             </select>
