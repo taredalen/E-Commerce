@@ -31,7 +31,7 @@ $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
 			<div class="container">
 				<div class="menu-container">
 					<div class="navbar-logo">
-						<img class="navbar-logo-img" src="img/logo_grey.png" alt="PH">
+						<img class="navbar-logo-img" src="img/logo_grey_2.png" alt="PH">
 					</div>
 				</div>
 				<div class="collapse navbar-collapse nav-collapse">
@@ -57,8 +57,10 @@ $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
 			</div>
 		</nav>
 	</header>
-	<!--=========== Page ============-->
+</div>
 
+<!--=========== Page ============-->
+<div class="section-seperator">
 	<div class="content-md container">
 		<div class="col well">
 			<div class="form-group row">
@@ -77,22 +79,25 @@ $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
 			</div>
 		</div>
 
-		<!--=========== FOOTER ============-->
-		<div class="bg-color-sky-light">
-			<footer class="footer">
-				<div class="content container">
-					<div class="row">
-						<div class="col-xs-6">
-							<p class="margin-b-20"> 0825 00 41 23</p>
-						</div>
-						<div class="col-xs-6 text-right">
-							<p class="margin-b-20"> HP Inc. 14, rue de la Verrerie – CS 40012, 92197 Meudon CEDEX France</p>
-						</div>
-					</div>
-				</div>
-			</footer>
-		</div>
+</div>
 </body>
+<!--=========== FOOTER ============-->
+
+<div class="bg-color-sky-light">
+	<footer class="footer">
+		<div class="content container">
+			<div class="row">
+				<div class="col-xs-6">
+					<p class="margin-b-20"> 0825 00 41 23</p>
+				</div>
+				<div class="col-xs-6 text-right">
+					<p class="margin-b-20"> HP Inc. 14, rue de la Verrerie – CS 40012, 92197 Meudon CEDEX France</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>
+</div>
 </html>
 
 
