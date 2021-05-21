@@ -72,7 +72,7 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
 			<div class="container">
 				<div class="menu-container">
 					<div class="navbar-logo">
-						<img class="navbar-logo-img" src="img/logo_grey.png" alt="PH">
+						<img class="navbar-logo-img" src="img/logo_grey_2.png" alt="PH">
 					</div>
 				</div>
 				<div class="collapse navbar-collapse nav-collapse">
