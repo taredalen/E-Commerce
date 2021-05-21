@@ -82,6 +82,8 @@ if(isset($_SESSION['user_login'])) {
 	<div class="content-md container">
 		<div class="row margin-b-40">
 			<div class="col-sm-6">
+				<h2>Votre profil</h2>
+
 				<p><a href="modifier_profil.php"><span style="color: #19b9cc">Cliquez ici</span></a>
 					si vous souhaitez modifier les informations.
 				</p>
@@ -106,49 +108,49 @@ if(isset($_SESSION['user_login'])) {
 
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label for="nom" class="text-info" >Nom</label>
+							<label for="nom" class="text-info" style="color: #19b9cc" align="center" >Nom</label>
 							<input type="text" class="form-control" id="nom" name="nom" minlength="2" placeholder='<?php echo $nom; ?>'>
 						</div>
 						<div class="form-group col-md-6">
-							<label for="prenom" class="text-info">Prenom</label>
+							<label for="prenom" class="text-info" style="color: #19b9cc" align="center">Prenom</label>
 							<input type="text" class="form-control" id="prenom" name="prenom" minlength="2" placeholder='<?php echo $prenom; ?>'>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label for="mail" class="text-info">Email</label>
+							<label for="mail" class="text-info" style="color: #19b9cc" align="center">Email</label>
 							<input type="email" class="form-control" id="mail" name="mail" placeholder='<?php echo $mail; ?>'>
 						</div>
 						<div class="form-group col-md-6">
-							<label for="numero" class="text-info">Numéro de téléphone</label>
+							<label for="numero" class="text-info" style="color: #19b9cc" align="center">Numéro de téléphone</label>
 							<input type="tel" class="form-control" id="numero" name="numero" minlength="8" placeholder='<?php echo $numero; ?>'>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label for="rue" class="text-info">Rue</label>
+							<label for="rue" class="text-info" style="color: #19b9cc" align="center">Rue</label>
 							<input type="text" class="form-control" id="rue" name="rue" placeholder='<?php echo $rue; ?>'>
 						</div>
 						<div class="form-group col-md-4">
-							<label for="ville" class="text-info">Ville</label>
+							<label for="ville" class="text-info" style="color: #19b9cc" align="center">Ville</label>
 							<input type="text" class="form-control" id="ville" name="ville" placeholder='<?php echo $ville; ?>'>
 						</div>
 						<div class="form-group col-md-2">
-							<label for="code" class="text-info">Code Postal</label>
+							<label for="code" class="text-info" style="color: #19b9cc" align="center">Code Postal</label>
 							<input type="text" class="form-control" id="code" name="code" minlength="5" maxlength="5" placeholder='<?php echo $code; ?>'>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label for="situation" class="text-info">Situation Familiale </label>
+							<label for="situation" class="text-info" style="color: #19b9cc" align="center">Situation Familiale </label>
 							<input type="text" class="form-control" id="situation" name="situation" placeholder='<?php echo $situation; ?>'>
 						</div>
 						<div class="form-group col-md-4">
-							<label for="naissance" class="text-info">Date de naissance</label>
+							<label for="naissance" class="text-info" style="color: #19b9cc" align="center">Date de naissance</label>
 							<input type="date" class="form-control" id="naissance" name="naissance" placeholder='<?php echo $date; ?>'>
 						</div>
 						<div class="form-group col-md-2">
-							<label for="sexe" class="text-info">Sexe</label>
+							<label for="sexe" class="text-info" style="color: #19b9cc" align="center">Sexe</label>
 							<input type="text" class="form-control" id="sexe" name="sexe" placeholder='<?php echo $sexe; ?>'>
 						</div>
 					</div>
