@@ -2,8 +2,8 @@
 require_once 'connection.php';
 require_once 'db.php';
 
-$errorMsg = $_GET['errorMsg'];
-$successMsg = $_GET['successMsg'];
+session_start();
+$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ $successMsg = $_GET['successMsg'];
 </head>
 <body>
 
-
+<!-- ======== HEADER ======== -->
 <header class="header">
     <div class="bg-color-sky-light">
         <nav class="navbar" role="navigation">
@@ -53,11 +53,11 @@ $successMsg = $_GET['successMsg'];
         </nav>
     </div>
 </header>
+<!-- ======== FIN HEADER ======== -->
 
 
 
-
-
+<!-- ======== PAGE ======== -->
 <div class="section-seperator">
     <div class="content-md container">
         <div class="col well">
@@ -119,8 +119,8 @@ $successMsg = $_GET['successMsg'];
                     <th class="text-center">Prix (en €)</th>
                     <th class="text-center">TVA (en %)</th>
                     <th class="text-center">Description</th>
-                    <th class="text-center col-md-1">Modifier</th>
-                    <th class="text-center col-md-1">Supprimer</th>
+                    <th class="text-center col-md-1">Quantité</th>
+                    <th class="text-center col-md-1">Commander</th>
                 </tr>
                 </thead>
                 <tbody style="background-color:#ffffff;">
@@ -132,17 +132,36 @@ $successMsg = $_GET['successMsg'];
                 if(ISSET($_POST['recherche'])){
                     $categorie = $_POST['cat'];
                     $marque = $_POST['marque'];
-                    if($categorie!='Tout' && $marque!='Tout'){
-                        $sql = "SELECT * FROM Produits WHERE cat='{$categorie}' AND marque='{$marque}'";
+                    $prixmin = $_POST['prixmin'];
+                    $prixmax = $_POST['prixmax'];
+
+                    if(empty($prixmin) && empty($prixmax)){
+                        if($categorie!='Tout' && $marque!='Tout'){
+                            $sql = "SELECT * FROM Produits WHERE cat='{$categorie}' AND marque='{$marque}'";
+                        }
+                        elseif($categorie!='Tout' && $marque='Tout'){
+                            $sql = "SELECT * FROM Produits WHERE cat='{$categorie}'";
+                        }
+                        elseif($categorie='Tout' && $marque!='Tout'){
+                            $sql = "SELECT * FROM Produits WHERE marque='{$marque}'";
+                        }
+                        elseif($categorie='Tout' && $marque='Tout'){
+                            $sql = "SELECT * FROM Produits";
+                        }
                     }
-                    elseif($categorie!='Tout' && $marque='Tout'){
-                        $sql = "SELECT * FROM Produits WHERE cat='{$categorie}'";
-                    }
-                    elseif($categorie='Tout' && $marque!='Tout'){
-                        $sql = "SELECT * FROM Produits WHERE marque='{$marque}'";
-                    }
-                    elseif($categorie='Tout' && $marque='Tout'){
-                        $sql = "SELECT * FROM Produits";
+                    else{
+                        if($categorie!='Tout' && $marque!='Tout'){
+                            $sql = "SELECT * FROM Produits WHERE cat='{$categorie}' AND marque='{$marque}' AND prix BETWEEN '{$prixmin}' AND '{$prixmax}'";
+                        }
+                        elseif($categorie!='Tout' && $marque='Tout'){
+                            $sql = "SELECT * FROM Produits WHERE cat='{$categorie}' AND prix BETWEEN '{$prixmin}' AND '{$prixmax}'";
+                        }
+                        elseif($categorie='Tout' && $marque!='Tout'){
+                            $sql = "SELECT * FROM Produits WHERE marque='{$marque}' AND prix BETWEEN '{$prixmin}' AND '{$prixmax}'";
+                        }
+                        elseif($categorie='Tout' && $marque='Tout'){
+                            $sql = "SELECT * FROM Produits WHERE prix BETWEEN '{$prixmin}' AND '{$prixmax}'";
+                        }
                     }
                 }
                 else{
@@ -166,10 +185,12 @@ $successMsg = $_GET['successMsg'];
                         <td class="text-center"><?php echo $row['TVA']?></td>
                         <td class="pt-3-half"><?php echo $row['descr']?></td>
                         <th class="text-center col-md-1">
-                            <button type="submit" name="modifier" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='edit_product.php?id=<?php echo $row['id']; ?>'">Modifier</button>
+                            <form name="form" method="post" action="">
+                                <input type="text" name="quantite" id="quantite" class="form-control" placeholder="2"/>
+                            </form>
                         </th>
                         <th class="text-center col-md-1">
-                            <button type="submit" name="supprimer" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='delete_product.php?id=<?php echo $row['id']; ?>'">Supprimer</button>
+                            <button type="submit" name="commander" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='ajout_panier.php?id=<?php echo $row['id']; ?>&quantite=<?php echo $_REQUEST['quantite']?>'">Commander</button>
                         </th>
                     </tr>
                     <?php
@@ -182,10 +203,10 @@ $successMsg = $_GET['successMsg'];
     </div>
 </div>
 </body>
+<!-- ======== FIN PAGE ======== -->
 
 
-
-
+<!-- ======== FOOTER ======== -->
 <div class="bg-color-sky-light">
     <footer class="footer">
         <div class="content container">
@@ -200,4 +221,5 @@ $successMsg = $_GET['successMsg'];
         </div>
     </footer>
 </div>
+<!-- ======== FIN FOOTER ======== -->
 </html>

@@ -54,16 +54,13 @@ try {
 
     $sql6 = "CREATE TABLE if not exists Commande(
                          id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                         nom VARCHAR(500) NOT NULL,
-                         prenom VARCHAR(500) NOT NULL,
-                         mail VARCHAR(500) NOT NULL,
-                         rue VARCHAR(500) NOT NULL,
-                         ville VARCHAR(500) NOT NULL,
-                         code VARCHAR(500) NOT NULL,
-                         refe VARCHAR(500) NOT NULL,
-                         libelle VARCHAR(500) NOT NULL,
-                         quantité FLOAT,
-                         prix FLOAT";
+                         id_client INT UNSIGNED,
+                         id_produit INT UNSIGNED,
+                         quantite_produit INT,
+                         date_commande DATE,
+                         prix FLOAT,
+                         FOREIGN KEY(id_client) REFERENCES Client(id),
+                         FOREIGN KEY(id_produit) REFERENCES Produits(id))";
     $db->exec($sql6);
 
 }
