@@ -9,6 +9,10 @@ if(isset($_SESSION["user_login"]))	//check condition user login not direct back 
 {
 	header("location: gestion_client.php");
 }
+
+if(isset($_COOKIE['id'])){
+	header("location: gestion_admin.php");
+}
 ?>
 
 <!DOCTYPE html>
