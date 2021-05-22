@@ -4,6 +4,9 @@ require_once 'db.php';
 
 session_start();
 $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
+
+$errorMsg = $_GET['errorMsg'];
+$successMsg = $_GET['successMsg'];
 ?>
 
 <!DOCTYPE html>
@@ -35,10 +38,10 @@ $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
                                 <a class="nav-item-child" href="gestion_client.php">Accueil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-item-child" href="gestion_commande.php">Commande</a>
+                                <a class="nav-item-child active" href="gestion_commande.php">Commande</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-item-child active" href="ajouter_commentaire.php">Commentaires</a>
+                                <a class="nav-item-child" href="ajouter_commentaire.php">Commentaires</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-item-child" href="consulter_profil.php">Profil</a>
@@ -184,14 +187,14 @@ $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
                         <td class="text-center"><?php echo $row['prix']?></td>
                         <td class="text-center"><?php echo $row['TVA']?></td>
                         <td class="pt-3-half"><?php echo $row['descr']?></td>
-                        <th class="text-center col-md-1">
-                            <form name="form" method="post" action="">
-                                <input type="text" name="quantite" id="quantite" class="form-control" placeholder="2"/>
-                            </form>
-                        </th>
-                        <th class="text-center col-md-1">
-                            <button type="submit" name="commander" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='ajout_panier.php?id=<?php echo $row['id']; ?>&quantite=<?php echo $_REQUEST['quantite']?>'">Commander</button>
-                        </th>
+                        <form method="POST" action="ajout_panier.php?id=<?php echo $row['id']; ?>">
+                            <th class="text-center col-md-1">
+                                <input type="text" class="form-control" id="quantite" name="quantite" placeholder="2"/>
+                            </th>
+                            <th >
+                                <button type="submit" class="btn btn-info" name="commande">Commander</button>
+                            </th>
+                        </form>
                     </tr>
                     <?php
                 }
