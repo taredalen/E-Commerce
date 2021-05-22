@@ -1,12 +1,14 @@
 <?php
 require_once 'connection.php';
-require_once  'db.php';
+require_once 'db.php';
 
 $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
-if(isset($_POST['supprimer'])){
+
+if(isset($_POST['supprimer_produit'])){
     $checkbox = $_POST['check'];
     if(empty($checkbox)){
         $errorMsg[] ="Il n'y a aucun produits";
+        header("location:gestion_produit.php?errorMsg=$errorMsg"); // redirects to liste_produit page
     }
     else{
         for($i=0;$i<count($checkbox);$i++){
@@ -17,15 +19,17 @@ if(isset($_POST['supprimer'])){
                 while($row = mysqli_fetch_assoc($result)){
                     if($row["stock"]>0){
                         $errorMsg[] ="Le stock de ce produit n'est pas nul. Il ne peut dont pas être supprimé.";
+                        header("location:gestion_produit.php?errorMsg=$errorMsg"); // redirects to liste_produit page
                     }
                     else{
                         $result = mysqli_query($connect,"DELETE FROM Produits WHERE id='".$del_id."'");
                         if($result=true) {
                             $successMsg = "Produit(s) supprimé(s) avec succès";
-                            header("location:supprimer_produit.php?successMsg=$successMsg");
+                            header("location:supprimer_produit.php?successMsg=$successMsg"); // redirects to liste_produit page
                         }
                         else {
                             $errorMsg[]="Erreur";
+                            header("location:supprimer_produit.php?errorMsg=$errorMsg"); // redirects to liste_produit page
                         }
                     }
                 }
@@ -35,6 +39,8 @@ if(isset($_POST['supprimer'])){
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
 <div class="col well">
 	<h3 class="text-primary" style="color: #19b9cc" align="center">Supprimer les produits</h3>
 	<hr style="border-top:1px dotted #ccc;"/>
@@ -57,7 +63,7 @@ if(isset($_POST['supprimer'])){
 	}
 	?>
 	<form method="POST" action="">
-		<button type="submit" name="supprimer" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Supprimer</button>
+		<button type="submit" class="btn btn-info" name="supprimer_produit">Supprimer le(s) produit(s)</button>
 		<br/><br/>
 
 		<table class="table table-bordered table-responsive">
@@ -109,3 +115,4 @@ if(isset($_POST['supprimer'])){
 		</table>
 	</form>
 </div>
+</html>
