@@ -1,15 +1,16 @@
 <?php
-require_once 'connection.php';
 session_start();
 if(!isset($_SESSION['admin_login'])) {
 	header("location: index.php");
 }
 $id = $_SESSION['admin_login'];
-$select_stmt = $db->prepare("SELECT * FROM Administrateur WHERE id=:id");
-$select_stmt->execute(array(":id"=>$id));
-$row=$select_stmt->fetch(PDO::FETCH_ASSOC);
+$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
+$stmt = $connect->prepare("SELECT * FROM Administrateur WHERE id=?");
+$stmt->bind_param("s", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
