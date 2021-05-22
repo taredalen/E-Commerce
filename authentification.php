@@ -38,16 +38,17 @@ if(isset($_REQUEST['btn_login'])) {
 					if ($mail == $row["mail"]) {
 						if (password_verify($password, $row["password"])) {
 							$_SESSION["user_login"] = $row["id"];    //session name is "user_login"
+							$_SESSION["prenom"] = $row["prenom"];
 							$loginMsg = "Connexion réussie...";        //user login success message
 							header("refresh:2; gestion_client.php");
 						} else {
-							$errorMsg[] = "Mot de passe incorrect";
+							$errorMsg[] = "Votre mot de passe est incorrect ";
 						}
 					} else {
 						$errorMsg[] = "Login incorrect";
 					}
 				} else {
-					$errorMsg[] = "Login incorrect";
+					$errorMsg[] = "Aucun compte associé à ce login";
 				}
 			}
 
@@ -66,16 +67,18 @@ if(isset($_REQUEST['btn_login'])) {
 					if ($mail == $row["mail"]) {
 						if ($password == $row["password"]) {
 							$_SESSION["admin_login"] = $row["id"];    //session name is "admin_login"
+							$_SESSION["prenom"] = $row["prenom"];
+							setcookie('id', $row["id"], time()+ 3600 * 24 * 5);
 							$loginMsg = "Connexion réussie...";        //admin login success message
 							header("refresh:2; gestion_admin.php");
 						} else {
-							$errorMsg[] = "Mot de passe incorrect";
+							$errorMsg[] = "Votre mot de passe est incorrect ";
 						}
 					} else {
 						$errorMsg[] = "Login incorrect";
 					}
 				} else {
-					$errorMsg[] = "Login incorrect";
+					$errorMsg[] = "Aucun compte associé à ce login";
 				}
 			}
 		}
