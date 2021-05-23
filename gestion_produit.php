@@ -52,8 +52,6 @@ $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
 						</ul>
 					</div>
 				</div>
-				<h3 style="color: #19b9cc" align="center"> Administrateur
-				</h3>
 			</div>
 		</nav>
 	</header>

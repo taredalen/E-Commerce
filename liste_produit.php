@@ -83,7 +83,6 @@ require_once 'db.php';
 			}
 			?>
 
-			<div class="form-group row">
 				<form method="POST" action="">
 					<div class="col-xs-4">
 						<label for="cat" class="text-info"  style="color: #19b9cc">Catégorie</label>
@@ -110,7 +109,6 @@ require_once 'db.php';
 						<button  type="submit" class="form-control btn-info" name="recherche">Consulter la liste des produits</button>
 					</div>
 				</form>
-			</div>
 			<hr style="border-top:1px dotted #ccc;"/>
 			<br/><br/>
 

@@ -18,37 +18,55 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
 	$tva		    = strip_tags($_REQUEST['TVA']);
 	$descr	        = strip_tags($_REQUEST['descr']);
 
-	$tmpName  = $_FILES['userfile']['tmp_name'];
+	$file = $_FILES['file'];
 
-	$fp      = fopen($tmpName, 'r');
-	$content = fread($fp, filesize($tmpName));
-	$content = addslashes($content);
-	fclose($fp);
+	$fileName = $_FILES['file']['name'];
+	$fileTmpName = $_FILES['file']['tmp_name'];
+	$fileSize = $_FILES['file']['size'];
+	$fileError = $_FILES['file']['error'];
+	$fileType = $_FILES['file']['type'];
 
+	$fileExt = explode('.',$fileName);
+	$fileActualExt = strtolower(end($fileExt));
 
+	$allowed = array('jpg','jpeg', 'png','pdf');
+
+	if(!in_array($fileActualExt,$allowed)){
+		$errorMsg[] = "Veuillez choisir le fichier de type .jpg, .jpeg, .png ou .pdf";
+	}
+	if(!in_array($fileActualExt,$allowed)){
+		$errorMsg[] = "Veuillez choisir le fichier de type .jpg, .jpeg, .png ou .pdf";
+	}
 	if(empty($libelle)){
-		$errorMsg[]="Veuillez entrer le libellé du produit";
+		$errorMsg[] = "Veuillez entrer le libellé du produit";
 	}
 	if(empty($stock)){
-		$errorMsg[]="Veuillez entrer la quantité en stock du produit";
+		$errorMsg[] = "Veuillez entrer la quantité en stock du produit";
 	}
 	if(empty($prix)){
-		$errorMsg[]="Veuillez entrer le prix du produit";
+		$errorMsg[] = "Veuillez entrer le prix du produit";
 	}
 	if(empty($tva)){
-		$errorMsg[]="Veuillez entrer la TVA applicable au produit";
+		$errorMsg[] = "Veuillez entrer la TVA applicable au produit";
 	}
 	if(empty($descr)){
-		$errorMsg[]="Veuillez entrer la description du produit";
+		$errorMsg[] = "Veuillez entrer la description du produit";
 	}
 
 	else {
+
+		$fileNameNew = uniqid('', true).".".$fileActualExt;
+		$fileDestination = 'uploads/'.$fileNameNew;
+
+		move_uploaded_file($fileTmpName,$fileDestination);
+
 		$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 
 		$sql = "INSERT INTO Produits (refe, libelle, cat, marque, stock, prix, tva, descr, content ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = mysqli_prepare($connect,$sql);
 		$refe = uniqid($refe);
-		mysqli_stmt_bind_param($stmt, "ssssiiiss",$refe, $libelle, $cat, $marque, $stock, $prix, $tva, $descr, $content);
+		mysqli_stmt_bind_param($stmt, "ssssiiisb",$refe, $libelle, $cat, $marque, $stock, $prix, $tva, $descr, $filedata);
+		$stmt->send_long_data(8, file_get_contents($file_tmp));
 		if($stmt->execute()) {
 			$successMsg = "Produit ajouté avec succès";
 		}
@@ -181,7 +199,6 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
 						</div>
 					</div>
 					<div class="row">
-
 						<div class="form-group col-md-4">
 							<label for="stock" class="text-info" style="color: #19b9cc">Quantité en stock*</label>
 							<input type="number" class="form-control" id="stock" name="stock" min="1"/>
@@ -199,8 +216,8 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
 						<div class="col-md-12 margin-b-20">
 							<label for="descr" class="text-info" style="color: #19b9cc">Description du produit</label>
 							<textarea class="form-control" rows="4" placeholder="Description" name="descr" id="descr"></textarea>
-							<input type="hidden" name="MAX_FILE_SIZE" value="2000000">
-							<input name="userfile" type="file" id="userfile">
+							<input type="hidden" name="MAX_FILE_SIZE" value="67108864">
+							<input type="file" name="file" accept=".pdf">
 						</div>
 						<div class="form-group col-md-6">
 							<button type="submit" name="btn_add" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">  Ajouter produit  </button>

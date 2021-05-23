@@ -64,8 +64,10 @@ $successMsg = $_GET['successMsg'];
 <div class="section-seperator">
     <div class="content-md container">
         <div class="col well">
-            <h3 class="text-primary">Produits</h3>
+	        <div style="align-content: center">
+		        <h3 class="text-primary" style="color: #19b9cc" align="center">Produits</h3>
             <hr style="border-top:1px dotted #ccc;"/>
+
             <?php
             if(isset($errorMsg)) {
                 ?>
@@ -82,33 +84,44 @@ $successMsg = $_GET['successMsg'];
                 <?php
             }
             ?>
-            <form method="POST" action="">
-                <label for="cat" class="text-info"  style="color: #19b9cc">Catégorie</label>
-                <select class="form-control" name="cat" id="cat">
+		        <form method="POST" action="">
+			        <div class="row">
+				        <div class="col-xs-3">
+					        <label for="cat" class="text-info"  style="color: #19b9cc">Catégorie</label>
+					        <select class="form-control" name="cat" id="cat">
                     <option value="Tout">Tout</option>
                     <option value="Autre">Autre</option>
                     <option value="pc">PC</option>
                     <option value="imprimante">Imprimante</option>
                     <option value="scanner">Scanner</option>
                 </select>
-
-                <label for="marque" class="text-info"  style="color: #19b9cc">Marque</label>
-                <select class="form-control" name="marque" id="marque">
+				        </div>
+				        <div class="col-xs-3">
+					        <label for="marque" class="text-info"  style="color: #19b9cc">Marque</label>
+					        <select class="form-control" name="marque" id="marque">
                     <option value="Tout">Tout</option>
                     <option value="Autre">Autre</option>
                     <option value="HP">HP</option>
                     <option value="cannon">Cannon</option>
                     <option value="boulanger">Boulanger</option>
                 </select>
-
-                <label for="prixmin" class="text-info"  style="color: #19b9cc">Prix minimum</label>
-                <input type="text" class="form-control" id="prixmin" name="prixmin"/>
-
-                <label for="prixmax" class="text-info"  style="color: #19b9cc">Prix maximum</label>
-                <input type="text" class="form-control" id="prixmax" name="prixmax"/>
-
-                <button type="submit" class="btn btn-info" name="recherche">Rechercher les produits</button>
-            </form>
+				        </div>
+				        <div class="col-xs-3">
+					        <label for="prixmin" class="text-info"  style="color: #19b9cc">Prix minimum</label>
+					        <input type="text" class="form-control" id="prixmin" name="prixmin"/>
+				        </div>
+				        <div class="col-xs-3">
+					        <label for="prixmax" class="text-info"  style="color: #19b9cc">Prix maximum</label>
+					        <input type="text" class="form-control" id="prixmax" name="prixmax"/>
+				        </div>
+			        </div>
+			        <div class="row">
+				        <br/><br/>
+				        <div class="col-xs-3">
+					        <button type="submit" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" name="recherche">Rechercher les produits</button>
+				        </div>
+			        </div>
+		        </form>
             <br/><br/>
 
             <table class="table table-bordered table-responsive">
@@ -189,7 +202,7 @@ $successMsg = $_GET['successMsg'];
                         <td class="pt-3-half"><?php echo $row['descr']?></td>
                         <form method="POST" action="ajout_panier.php?id=<?php echo $row['id']; ?>">
                             <th class="text-center col-md-1">
-                                <input type="text" class="form-control" id="quantite" name="quantite" placeholder="2"/>
+                                <input type="text" class="form-control" id="quantite" name="quantite"/>
                             </th>
                             <th >
                                 <button type="submit" class="btn btn-info" name="commande">Commander</button>
@@ -202,6 +215,8 @@ $successMsg = $_GET['successMsg'];
                 ?>
                 </tbody>
             </table>
+	        </div>
+
         </div>
     </div>
 </div>

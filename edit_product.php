@@ -4,7 +4,7 @@ require_once 'db.php';
 
 session_start();
 
-if(!isset($_SESSION['admin_login'])) {
+if(!isset($_COOKIE['id'])) {
     header("location: index.php");
 }
 
