@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
 session_start();
-if(!isset($_SESSION['admin_login'])) {
+if(!isset($_COOKIE['id'])) {
 	header("location: index.php");
 }
 $id = $_SESSION['admin_login'];

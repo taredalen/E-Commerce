@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 
 if(isset($_SESSION["user_login"])){
 	header("location: gestion_client.php");
@@ -28,6 +27,7 @@ if(isset($_REQUEST['btn_login'])) {
 				//$select_stmt->execute(array(':mail' => $mail));    //execute query with bind parameter
 				//$row = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
+				$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 				$stmt = $connect->prepare("SELECT * FROM Client WHERE mail=?");
 				$stmt->bind_param("s", $mail);
 				$stmt->execute();

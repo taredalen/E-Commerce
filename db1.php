@@ -53,7 +53,9 @@ $sql5 = "CREATE TABLE if not exists Produits(
                          stock INTEGER,
                          prix FLOAT,
                          TVA INTEGER,
-                         descr VARCHAR(500) NOT NULL)";
+                         descr VARCHAR(500) NOT NULL
+                         content LONGBLOB DEFAULT NULL)";
+
 $resultat5 = mysqli_query($connect, $sql5); //Création des produits
 
 $sql6 = "CREATE TABLE if not exists Commande(

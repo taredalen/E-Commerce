@@ -4,7 +4,7 @@ require_once 'db.php';
 
 session_start();
 
-if(!isset($_SESSION['admin_login'])) {
+if(!isset($_COOKIE['id'])) {
 	header("location: index.php");
 }
 
@@ -17,6 +17,14 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
 	$prix		    = strip_tags($_REQUEST['prix']);
 	$tva		    = strip_tags($_REQUEST['TVA']);
 	$descr	        = strip_tags($_REQUEST['descr']);
+
+	$tmpName  = $_FILES['userfile']['tmp_name'];
+
+	$fp      = fopen($tmpName, 'r');
+	$content = fread($fp, filesize($tmpName));
+	$content = addslashes($content);
+	fclose($fp);
+
 
 	if(empty($libelle)){
 		$errorMsg[]="Veuillez entrer le libellé du produit";
@@ -37,10 +45,10 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
 	else {
 		$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 
-		$sql = "INSERT INTO Produits (refe, libelle, cat, marque, stock, prix, tva, descr) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO Produits (refe, libelle, cat, marque, stock, prix, tva, descr, content ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = mysqli_prepare($connect,$sql);
 		$refe = uniqid($refe);
-		mysqli_stmt_bind_param($stmt, "ssssiiis",$refe, $libelle, $cat, $marque, $stock, $prix, $tva, $descr);
+		mysqli_stmt_bind_param($stmt, "ssssiiiss",$refe, $libelle, $cat, $marque, $stock, $prix, $tva, $descr, $content);
 		if($stmt->execute()) {
 			$successMsg = "Produit ajouté avec succès";
 		}
@@ -141,7 +149,7 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
 					<?php
 				}
 				?>
-				<form method="GET" action="ajouter_produit.php">
+				<form method="GET" action="ajouter_produit.php" enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-3">
 							<label for="refe" class="text-info"  style="color: #19b9cc">Référence produit*</label>
@@ -191,9 +199,11 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
 						<div class="col-md-12 margin-b-20">
 							<label for="descr" class="text-info" style="color: #19b9cc">Description du produit</label>
 							<textarea class="form-control" rows="4" placeholder="Description" name="descr" id="descr"></textarea>
+							<input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+							<input name="userfile" type="file" id="userfile">
 						</div>
 						<div class="form-group col-md-6">
-							<button type="submit" name="btn_add" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Ajouter un produit</button>
+							<button type="submit" name="btn_add" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">  Ajouter produit  </button>
 						</div>
 					</div>
 				</form>
