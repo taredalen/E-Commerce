@@ -61,12 +61,10 @@ $resultat5 = mysqli_query($connect, $sql5); //Création des produits
 $sql6 = "CREATE TABLE if not exists Commande(
                          id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                          id_client INT UNSIGNED,
-                         id_produit INT UNSIGNED,
-                         quantite_produit INT,
+                         liste_id_produits_cmd VARCHAR(500),
                          date_commande DATE,
                          prix FLOAT,
-                         FOREIGN KEY(id_client) REFERENCES Client(id),
-                         FOREIGN KEY(id_produit) REFERENCES Produits(id))";
+                         FOREIGN KEY(id_client) REFERENCES Client(id))";
 $resultat6 = mysqli_query($connect, $sql6); //Création des commandes
 
 ?>
