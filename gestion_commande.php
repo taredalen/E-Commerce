@@ -47,6 +47,9 @@ $successMsg = $_GET['successMsg'];
                                 <a class="nav-item-child" href="consulter_profil.php">Profil</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-item-child" href="consulter_panier.php">Panier</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-item-child" href="deconnexion.php">Déconnexion</a>
                             </li>
                         </ul>
@@ -57,7 +60,6 @@ $successMsg = $_GET['successMsg'];
     </div>
 </header>
 <!-- ======== FIN HEADER ======== -->
-
 
 
 <!-- ======== PAGE ======== -->
@@ -72,6 +74,7 @@ $successMsg = $_GET['successMsg'];
             if(isset($errorMsg)) {
                 ?>
                 <div class="alert alert-danger">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <strong><?php echo $errorMsg; ?></strong>
                 </div>
                 <?php
@@ -197,12 +200,12 @@ $successMsg = $_GET['successMsg'];
                         <td class="text-center"><?php echo $row['cat']?></td>
                         <td class="text-center"><?php echo $row['marque']?></td>
                         <td class="text-center"><?php echo $row['stock']?></td>
-                        <td class="text-center"><?php echo $row['prix']?></td>
+                        <td class="text-center"><?php echo $row['prix_unitaire']?></td>
                         <td class="text-center"><?php echo $row['TVA']?></td>
                         <td class="pt-3-half"><?php echo $row['descr']?></td>
                         <form method="POST" action="ajout_panier.php?id=<?php echo $row['id']; ?>">
                             <th class="text-center col-md-1">
-                                <input type="text" class="form-control" id="quantite" name="quantite"/>
+                                <input type="text" class="form-control" id="quantite" name="quantite" placeholder="2"/>
                             </th>
                             <th >
                                 <button type="submit" class="btn btn-info" name="commande">Commander</button>
@@ -216,7 +219,6 @@ $successMsg = $_GET['successMsg'];
                 </tbody>
             </table>
 	        </div>
-
         </div>
     </div>
 </div>

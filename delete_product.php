@@ -3,7 +3,7 @@ require_once 'connection.php';
 require_once 'db.php';
 
 $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
-$id = $_GET['id']; // get id through query string
+$id = $_GET['id']; // get id produit
 
 $sql1 = "SELECT stock FROM Produits WHERE id='".$id."'";
 $result = mysqli_query($connect, $sql1);

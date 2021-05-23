@@ -51,7 +51,7 @@ $sql5 = "CREATE TABLE if not exists Produits(
                          cat VARCHAR(500),
                          marque VARCHAR(500),
                          stock INTEGER,
-                         prix FLOAT,
+                         prix_unitaire FLOAT,
                          TVA INTEGER,
                          descr VARCHAR(500) NOT NULL
                          content LONGBLOB DEFAULT NULL)";

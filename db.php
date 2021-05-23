@@ -47,7 +47,7 @@ try {
                          cat VARCHAR(500),
                          marque VARCHAR(500),
                          stock INTEGER,
-                         prix FLOAT,
+                         prix_unitaire FLOAT,
                          TVA INTEGER,
                          descr VARCHAR(500) NOT NULL)";
     $db->exec($sql5);

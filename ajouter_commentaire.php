@@ -87,6 +87,9 @@ if(isset($_REQUEST['btn'])) {
 						<li class="nav-item">
 							<a class="nav-item-child" href="consulter_profil.php">Profil</a>
 						</li>
+                        <li class="nav-item">
+                            <a class="nav-item-child" href="consulter_panier.php">Panier</a>
+                        </li>
 						<li class="nav-item">
 							<a class="nav-item-child" href="deconnexion.php">Déconnexion</a>
 						</li>

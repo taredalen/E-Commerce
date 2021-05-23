@@ -73,7 +73,10 @@ require_once 'db.php';
 			<?php
 			if(isset($errorMsg)) {
 				?>
-				<div class="alert alert-danger"><strong><?php echo $errorMsg; ?></strong></div>
+				<div class="alert alert-danger">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <strong><?php echo $errorMsg; ?></strong>
+                </div>
 				<?php
 			}
 			if(isset($successMsg)) {
