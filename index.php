@@ -2,6 +2,7 @@
 
 require_once 'connection.php';
 require_once 'db.php';
+require_once 'insertion.php';
 
 session_start();
 

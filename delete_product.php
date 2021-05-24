@@ -5,7 +5,7 @@ require_once 'db.php';
 $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 $id = $_GET['id']; // get id produit
 
-$sql1 = "SELECT stock FROM Produits WHERE id='".$id."'";
+$sql1 = "SELECT stock FROM Produits WHERE id=".$id;
 $result = mysqli_query($connect, $sql1);
 if (mysqli_num_rows($result) > 0){
     while($row = mysqli_fetch_assoc($result)){
@@ -16,17 +16,17 @@ if (mysqli_num_rows($result) > 0){
             exit;
         }
         else{
-            $result1 = mysqli_query($connect,"DELETE FROM Produits WHERE id='".$id."'");
+            $result1 = mysqli_query($connect,"DELETE FROM Produits WHERE id=".$id);
             if($result1=true) {
                 mysqli_close($connect); // Close connection
                 $successMsg = "Produit supprimé avec succès";
-                header("location:gestion_produit.php?successMsg=$successMsg"); // redirects to liste_produit page
+                header("location:liste_produit.php?successMsg=$successMsg"); // redirects to liste_produit page
                 exit;
             }
             else {
                 mysqli_close($connect); // Close connection
                 $errorMsg="Erreur";
-                header("location:gestion_produit.php?errorMsg=$errorMsg"); // redirects to liste_produit page
+                header("location:liste_produit.php?errorMsg=$errorMsg"); // redirects to liste_produit page
                 exit;
             }
         }

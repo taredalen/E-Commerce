@@ -12,7 +12,7 @@ if(isset($_POST['supprimer'])){
 		for($i=0;$i<count($checkbox);$i++){
 			$del_id = $checkbox[$i];
 			echo $del_id;
-			$sql = "SELECT stock FROM Produits WHERE id='".$del_id."'";
+			$sql = "SELECT stock FROM Produits WHERE id=".$del_id;
 			$result = mysqli_query($connect, $sql);
 			if (mysqli_num_rows($result) > 0){
 				while($row = mysqli_fetch_assoc($result)){
@@ -20,7 +20,8 @@ if(isset($_POST['supprimer'])){
 						$errorMsg[] ="Le stock de ce produit n'est pas nul. Il ne peut dont pas être supprimé.";
 					}
 					else{
-						$result1 = mysqli_query($connect,"DELETE FROM Produits WHERE id='".$del_id."'");
+					    $sql1 = "DELETE FROM Produits WHERE id=".$del_id;
+						$result1 = mysqli_query($connect,$sql1);
 						if($result1=true) {
 							$successMsg = "Produits supprimés avec succès";
 						}
