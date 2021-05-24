@@ -8,7 +8,7 @@ if(!isset($_COOKIE['id'])) {
 	header("location: index.php");
 }
 
-if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
+if(isset($_REQUEST['btn_add'])) {
 	$refe	        = strip_tags($_REQUEST['refe']);
 	$libelle		= strip_tags($_REQUEST['libelle']);
 	$cat		    = strip_tags($_REQUEST['cat']);
@@ -55,18 +55,16 @@ if(isset($_REQUEST['btn_add'])) { //button name "btn_add"
 
 	else {
 
-		$fileNameNew = uniqid('', true).".".$fileActualExt;
-		$fileDestination = 'uploads/'.$fileNameNew;
+		//$fileNameNew = uniqid('', true).".".$fileActualExt;
+		//$fileDestination = 'uploads/'.$fileNameNew;
 
-		move_uploaded_file($fileTmpName,$fileDestination);
+		//move_uploaded_file($fileTmpName,$fileDestination);
 
-		$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
+		//$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 
-		$sql = "INSERT INTO Produits (refe, libelle, cat, marque, stock, prix, tva, descr, content ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO Produits (refe, libelle, cat, marque, stock, prix, tva, descr) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = mysqli_prepare($connect,$sql);
 		$refe = uniqid($refe);
-		mysqli_stmt_bind_param($stmt, "ssssiiisb",$refe, $libelle, $cat, $marque, $stock, $prix, $tva, $descr, $filedata);
-		$stmt->send_long_data(8, file_get_contents($file_tmp));
 		if($stmt->execute()) {
 			$successMsg = "Produit ajouté avec succès";
 		}
