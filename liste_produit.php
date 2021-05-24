@@ -109,7 +109,7 @@ $successMsg = $_GET['successMsg'];
 							<option value="Tout">Tout</option>
 							<option value="Autre">Autre</option>
 							<option value="HP">HP</option>
-							<option value="cannon">Cannon</option>
+							<option value="canon">Canon</option>
 							<option value="boulanger">Boulanger</option>
 						</select>
 					</div>
