@@ -2,7 +2,7 @@
 require_once 'connection.php';
 session_start();
 if(!isset($_COOKIE['id'])) {
-	header("location: index.php");
+	header("location: accueil.php");
 }
 $id = $_SESSION['admin_login'];
 $select_stmt = $db->prepare("SELECT * FROM Administrateur WHERE id=:id");

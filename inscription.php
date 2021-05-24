@@ -65,8 +65,8 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
 		            $date_format = NULL;
 	            }
 	            if(!empty($naissance)) {
-		            $date = Datetime::createFromFormat('d-m-Y', $naissance);
-		            $date_format=$date->format('Y-m-d');
+		            $date = Datetime::createFromFormat('DD-MM-YYYY', $naissance);
+		            $date_format=$date->format('YYYY-MM-DD');
 	            }
                 $new_password = password_hash($password, PASSWORD_DEFAULT); //encrypt password using password_hash()
 
@@ -126,7 +126,7 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
                         <div class="menu-container">
                             <ul class="navbar-nav navbar-nav-right">
                                 <li class="nav-item">
-                                    <a class="nav-item-child" href="index.php">
+                                    <a class="nav-item-child" href="accueil.php">
                                         Accueil
                                     </a>
                                 </li>

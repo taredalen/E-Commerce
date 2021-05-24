@@ -170,16 +170,16 @@ $successMsg = $_GET['successMsg'];
                     }
                     else{
                         if($categorie!='Tout' && $marque!='Tout'){
-                            $sql = "SELECT * FROM Produits WHERE cat='{$categorie}' AND marque='{$marque}' AND prix BETWEEN '{$prixmin}' AND '{$prixmax}'";
+                            $sql = "SELECT * FROM Produits WHERE cat='{$categorie}' AND marque='{$marque}' AND prix_unitaire BETWEEN '{$prixmin}' AND '{$prixmax}'";
                         }
                         elseif($categorie!='Tout' && $marque='Tout'){
-                            $sql = "SELECT * FROM Produits WHERE cat='{$categorie}' AND prix BETWEEN '{$prixmin}' AND '{$prixmax}'";
+                            $sql = "SELECT * FROM Produits WHERE cat='{$categorie}' AND prix_unitaire BETWEEN '{$prixmin}' AND '{$prixmax}'";
                         }
                         elseif($categorie='Tout' && $marque!='Tout'){
-                            $sql = "SELECT * FROM Produits WHERE marque='{$marque}' AND prix BETWEEN '{$prixmin}' AND '{$prixmax}'";
+                            $sql = "SELECT * FROM Produits WHERE marque='{$marque}' AND prix_unitaire BETWEEN '{$prixmin}' AND '{$prixmax}'";
                         }
                         elseif($categorie='Tout' && $marque='Tout'){
-                            $sql = "SELECT * FROM Produits WHERE prix BETWEEN '{$prixmin}' AND '{$prixmax}'";
+                            $sql = "SELECT * FROM Produits WHERE prix_unitaire BETWEEN '{$prixmin}' AND '{$prixmax}'";
                         }
                     }
                 }
