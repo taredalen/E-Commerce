@@ -97,7 +97,7 @@ $resultat12 = mysqli_query($connect, $sql12); //creation d'un produit
 $sql14= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire) VALUES (1, 'Rodrigues','Camille', 'cam.6c@hotmail.fr', 'Tres satisfaite , une livraison super rapide en 24h! Ecran magnifique sans aucun défaut , que vouloir de plus ? je continuerai à commander chez eux sans aucun doute.')";
 $resulta14 = mysqli_query($connect, $sql14);
 
-$sql14= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire) VALUES (2, 'Laporte','Jacky', 'jacky.Laporte@gmail.com', 'Tres bonne expérience me concernant. Bon produit et surtout livré en 24h, sans frais. Je recommanderai sans hésiter !')";
+$sql14= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire) VALUES (2, 'Laporte','Jacky', 'jacky.laporte@gmail.com', 'Tres bonne expérience me concernant. Bon produit et surtout livré en 24h, sans frais. Je recommanderai sans hésiter !')";
 $resulta14 = mysqli_query($connect, $sql14);
 
 $sql15= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire) VALUES (3, 'Bonin','Danielle', 'dani.bonin@free.com', 'Ca fait 3 mois, qu’ils sont en rupture de stocks de tapis de souris. Il ne faut pas être pressé avec eux!')";
@@ -109,9 +109,15 @@ try {
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 	$password1 = password_hash('Camillou', PASSWORD_DEFAULT); //encrypt password using password_hash()
+	$password2 = password_hash('Laporte', PASSWORD_DEFAULT); //encrypt password using password_hash()
+	$password3 = password_hash('Danielle', PASSWORD_DEFAULT); //encrypt password using password_hash()
 
-	$insert_stmt=$db->prepare("INSERT INTO Client(id, nom, prenom, mail, numero, rue, ville, code, situation, naissance, sexe, password) VALUES(:id,:nom,:prenom,:mail,:numero,:rue,:ville,:code,:situation,:naissance,:sexe,:password)");		//sql insert query
+	$insert_stmt = $db->prepare("INSERT INTO Client(id, nom, prenom, mail, numero, rue, ville, code, situation, naissance, sexe, password) VALUES(:id,:nom,:prenom,:mail,:numero,:rue,:ville,:code,:situation,:naissance,:sexe,:password)");		//sql insert query
 	$insert_stmt->execute(array(':id'=>1,':nom'	=>'Rodrigues', ':prenom'=>'Camille', ':mail'=>'cam.6c@hotmail.fr', ':numero' =>'0651188857', ':rue' =>'5 Rue Raspail', ':ville'	=>'Saint-Ouen', ':code'=>'93400', ':situation'=>'Célibataire', ':naissance'=>'1997-04-05', ':sexe' 	=>'Femme', ':password' =>$password1));
+
+
+	$insert_stmt->execute(array(':id'=>2,':nom'	=>'Laporte', ':prenom'=>'Jacky', ':mail'=>'jacky.laporte@gmail.com', ':numero' =>'0682387681', ':rue' =>'10 rue Rablais', ':ville'	=>'Paris', ':code'=>'75010', ':situation'=>'---', ':naissance'=>'1976-03-12', ':sexe' 	=>'Homme', ':password' =>$password2));
+	$insert_stmt->execute(array(':id'=>3,':nom'	=>'Bonin', ':prenom'=>'Danielle', ':mail'=>'dani.bonin@free.com', ':numero' =>'0792387664', ':rue' =>'10 avenue Paradis', ':ville'	=>'Paris', ':code'=>'75017', ':situation'=>'---', ':naissance'=>'1999-09-15', ':sexe' 	=>'Femme', ':password' =>$password3));
 }
 catch (PDOEXCEPTION $e) {
 }
