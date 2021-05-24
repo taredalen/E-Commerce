@@ -1,8 +1,7 @@
 <?php
 
-require_once 'connection.php';
 require_once 'db.php';
-require_once 'insertion.php';
+require_once 'connection.php';
 
 session_start();
 

@@ -1,5 +1,5 @@
 <?php
-
+require_once 'insertion.php';
 session_start();
 
 if(isset($_SESSION["user_login"])){
