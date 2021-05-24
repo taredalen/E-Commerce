@@ -139,7 +139,7 @@ $new_qtn = 0;
 									}
 									?>
 								</select>
-								<button name="supprimer" type="submit" class="btn btn-default" aria-label="Left Align" onclick="location.href='retirer_panier.php?id=<?php echo $row['id']; ?>'">
+								<button name="supprimer" type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='retirer_panier.php?id=<?php echo $row['id']; ?>'">
 									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 								</button>
 						</div>
