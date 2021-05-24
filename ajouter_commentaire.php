@@ -11,6 +11,7 @@ if(isset($_REQUEST['btn'])) {
 	$prenom	= strip_tags($_REQUEST["prenom"]);
 	$mail	= strip_tags($_REQUEST["mail"]);
 	$commentaire	= strip_tags($_REQUEST["commentaire"]);
+	$reponse ="";
 
 	if(empty($mail)){
 		$errorMsg[]="Veillez entrer votre mail";
@@ -30,14 +31,14 @@ if(isset($_REQUEST['btn'])) {
 
 			$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 			$stmt = $connect->prepare("SELECT * FROM Client WHERE mail=?");
-			$stmt->bind_param("i", $mail);
+			$stmt->bind_param("s", $mail);
 			$stmt->execute();
 			$result = $stmt->get_result();
 			$row = $result->fetch_assoc();
 
 			if($mail == $row["mail"]){
-				$stmt = $connect->prepare("INSERT INTO Commentaire (nom, prenom, mail, commentaire) VALUES (?, ?, ?, ?)");
-				$stmt->bind_param("ssss",$nom, $prenom, $mail, $commentaire);
+				$stmt = $connect->prepare("INSERT INTO Commentaire (nom, prenom, mail, commentaire, reponse) VALUES (?, ?, ?, ?,?)");
+				$stmt->bind_param("sssss",$nom, $prenom, $mail, $commentaire,$reponse);
 				if($stmt->execute()) {
 					$loginMsg = "Commentaire ajouté avec succès";
 				}

@@ -32,7 +32,8 @@ $sql2 = "CREATE TABLE if not exists Commentaire(
                          nom VARCHAR(500) NOT NULL,
                          prenom VARCHAR(500) NOT NULL,
                          mail VARCHAR(500) NOT NULL,
-                         commentaire VARCHAR(2000) NOT NULL)";
+                         commentaire VARCHAR(2000) NOT NULL,
+                         reponse VARCHAR(2000))";
 $resultat2 = mysqli_query($connect, $sql2);
 
 $sql3 = "CREATE TABLE if not exists Administrateur(
