@@ -69,22 +69,22 @@ $sql6 = "CREATE TABLE if not exists Commande(
                          FOREIGN KEY(id_client) REFERENCES Client(id))";
 $resultat6 = mysqli_query($connect, $sql6); //Création des commandes
 
-$sql7 = "INSERT INTO Produits (refe,libelle,cat,marque,stock, prix, TVA,descr ) VALUES ( '603a6C0ea#abf','HP Pavilion x360 14-dy0008nf', 'PC', 'HP', 17, 899,20,'Le HP Pavilion x360 14 convertible s’adapte à tous vos besoins pour vous permettre d’être productif sous n’importe quel angle. Regardez vos séries préférées aussi longtemps que vous le souhaitez grâce à HP Fast Charge. Avec ses deux haut-parleurs dotés d’un système audio par B&O, cet ordinateur portable vous offre le son et l’expérience de divertissement immersifs que vous recherchez. Conçu avec le souci du respect de l’environnement, le HP Pavilion x360 est fabriqué à partir de plastiques océaniques, durables et recyclés post-consommation')";
+$sql7 = "INSERT INTO Produits (refe,libelle,cat,marque,stock, prix_unitaire, TVA,descr ) VALUES ( '603a6C0ea#abf','HP Pavilion x360 14-dy0008nf', 'PC', 'HP', 17, 899,20,'Le HP Pavilion x360 14 convertible s’adapte à tous vos besoins pour vous permettre d’être productif sous n’importe quel angle. Regardez vos séries préférées aussi longtemps que vous le souhaitez grâce à HP Fast Charge. Avec ses deux haut-parleurs dotés d’un système audio par B&O, cet ordinateur portable vous offre le son et l’expérience de divertissement immersifs que vous recherchez. Conçu avec le souci du respect de l’environnement, le HP Pavilion x360 est fabriqué à partir de plastiques océaniques, durables et recyclés post-consommation')";
 $resultat7 = mysqli_query($connect, $sql7); //creation d'un produit
 
-$sql8 = "INSERT INTO Produits (refe,libelle,cat,marque,stock, prix, TVA,descr ) VALUES ( '603j122aa#abb','Stylet inclinable rechargeable HP MPP2.0 (noir)', 'Autre', 'HP', 3, 399,20,'Laissez libre cours à votre créativité avec la technologie MPP2.0, qui réduit les délais, optimise la transition entre les couleurs et améliore la réactivité')";
+$sql8 = "INSERT INTO Produits (refe,libelle,cat,marque,stock, prix_unitaire, TVA,descr ) VALUES ( '603j122aa#abb','Stylet inclinable rechargeable HP MPP2.0 (noir)', 'Autre', 'HP', 3, 399,20,'Laissez libre cours à votre créativité avec la technologie MPP2.0, qui réduit les délais, optimise la transition entre les couleurs et améliore la réactivité')";
 $resultat8 = mysqli_query($connect, $sql8); //creation d'un produit
 
-$sql9 = "INSERT INTO Produits (refe,libelle,cat,marque,stock, prix, TVA,descr ) VALUES ( '601mr71b#nhc','HP OfficeJet Pro 9020 tout-en-un', 'Imprimante', 'HP', 77, 279,20,'Une imprimante intelligente révolutionnaire. Gagnez du temps avec les raccourcis Smart Tasks. Bénéficiez d’une numérisation recto-verso en une seule passe, d’une impression mobile en toute simplicité,de connexions sans faille, de la sécurité HP, la meilleure de sa catégorie. Économisez jusqu’à 70 % sur vos cartouches d’encre')";
+$sql9 = "INSERT INTO Produits (refe,libelle,cat,marque,stock, prix_unitaire, TVA,descr ) VALUES ( '601mr71b#nhc','HP OfficeJet Pro 9020 tout-en-un', 'Imprimante', 'HP', 77, 279,20,'Une imprimante intelligente révolutionnaire. Gagnez du temps avec les raccourcis Smart Tasks. Bénéficiez d’une numérisation recto-verso en une seule passe, d’une impression mobile en toute simplicité,de connexions sans faille, de la sécurité HP, la meilleure de sa catégorie. Économisez jusqu’à 70 % sur vos cartouches d’encre')";
 $resultat9 = mysqli_query($connect, $sql9); //creation d'un produit
 
-$sql10= "INSERT INTO Produits (refe,libelle,cat,marque,stock, prix, TVA,descr ) VALUES ( '60#2228C02625','Canon PIXMA TS5151 - Blanc', 'Imprimante', 'Canon', 1, 79,20,'Imprimante multifonction familiale compacte et abordable avec connectivité intelligente pour imprimer, copier et numériser en toute simplicité à domicile.')";
+$sql10= "INSERT INTO Produits (refe,libelle,cat,marque,stock, prix_unitaire, TVA,descr ) VALUES ( '60#2228C02625','Canon PIXMA TS5151 - Blanc', 'Imprimante', 'Canon', 1, 79,20,'Imprimante multifonction familiale compacte et abordable avec connectivité intelligente pour imprimer, copier et numériser en toute simplicité à domicile.')";
 $resultat10 = mysqli_query($connect, $sql10); //creation d'un produit
 
-$sql11= "INSERT INTO Produits (refe,libelle,cat,marque,stock, prix, TVA,descr ) VALUES ( '60#2228C02625','Cartouche d’encre à haut rendement Canon PG-540XL/CL-541XL + Pack économique de papiers photo', 'Autre', 'Canon', 56, 11,20,'Tout ce dont votre imprimante a besoin dans un pack à prix réduit comprenant encres et papier photo.')";
+$sql11= "INSERT INTO Produits (refe,libelle,cat,marque,stock, prix_unitaire, TVA,descr ) VALUES ( '60#2228C02625','Cartouche d’encre à haut rendement Canon PG-540XL/CL-541XL + Pack économique de papiers photo', 'Autre', 'Canon', 56, 11,20,'Tout ce dont votre imprimante a besoin dans un pack à prix réduit comprenant encres et papier photo.')";
 $resultat11 = mysqli_query($connect, $sql11); //creation d'un produit
 
-$sql12= "INSERT INTO Produits (refe,libelle,cat,marque,stock, prix, TVA,descr ) VALUES ( '6000008377391','Tapis de souris Repose-poignet Noir', 'Autre', 'Boulanger', 0, 6,20,'Repose poignet en gel pour un confort d’utilisation personnalisé : soulage les tensions au niveau du poignet.Tissu Lycra.')";
+$sql12= "INSERT INTO Produits (refe,libelle,cat,marque,stock, prix_unitaire, TVA,descr ) VALUES ( '6000008377391','Tapis de souris Repose-poignet Noir', 'Autre', 'Boulanger', 0, 6,20,'Repose poignet en gel pour un confort d’utilisation personnalisé : soulage les tensions au niveau du poignet.Tissu Lycra.')";
 $resultat12 = mysqli_query($connect, $sql12); //creation d'un produit
 
 ?>
