@@ -206,7 +206,7 @@ if(isset($_REQUEST['btn_add'])) {
 						</div>
 						<div class="form-group col-md-4">
 							<label for="prix" class="text-info" style="color: #19b9cc">Prix unitaire*</label>
-							<input type="number" class="form-control" id="prix" name="prix" placeholder="12,99"/>
+							<input type="number" step="any" class="form-control" id="prix" name="prix" placeholder="12,99"/>
 						</div>
 						<div class="form-group col-md-4">
 							<label for="TVA" class="text-info" style="color: #19b9cc">TVA*</label>
