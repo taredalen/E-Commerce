@@ -9,6 +9,7 @@ $id_client = $_SESSION['user_login'];
 
 $errorMsg = $_GET['errorMsg'];
 $successMsg = $_GET['successMsg'];
+$new_qtn = 0;
 ?>
 
 <!DOCTYPE html>
@@ -138,7 +139,6 @@ $successMsg = $_GET['successMsg'];
                                     }
                                     ?>
                                 </select>
-                            </form>
                             <button name="supprimer" type="submit" class="btn btn-default" aria-label="Left Align" onclick="location.href='retirer_panier.php?id=<?php echo $row['id']; ?>'">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </button>
@@ -152,8 +152,9 @@ $successMsg = $_GET['successMsg'];
     </div>
     <!-- partie où le client doit valider le panier -->
     <div class="row" align="right">
-        <button type="submit" name="valider_btn" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='facture.php'"> Valider le panier </button>
+        <button type="submit" name="valider_btn" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='facture.php"> Valider le panier </button>
     </div>
+    </form>
 </div>
 </div>
 <!-- ======== FIN PAGE ======== -->

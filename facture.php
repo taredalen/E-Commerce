@@ -10,22 +10,17 @@ if(!isset($_SESSION['user_login'])) {
 $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 $id = $_SESSION['user_login'];
 
-$sql2 = "SELECT id_produit FROM Panier_".$id;
+$sql2 = "SELECT Pa.id_produit, P.prix_unitaire FROM Panier_".$id." AS Pa
+         JOIN Produits P ON P.id=Pa.id_produit";
 $stmt2 = mysqli_prepare($connect,$sql2);
 if(mysqli_stmt_execute($stmt2)==true){
     $result2 = mysqli_stmt_get_result($stmt2);
     while($row = mysqli_fetch_assoc($result2)){
         $name_select = 'select_qtn'.$row['id_produit'];
         $quantite_produit = $_POST[$name_select];
-        echo $_POST[$name_select];
-        /*$sql3 = "update Panier_".$id." set quantite_produit='$quantite_produit' WHERE id_produit=".$row['id_produit'];
+        $nouveau_prix = $quantite_produit*$row['prix_unitaire'];
+        $sql3 = "update Panier_".$id." set quantite_produit=".$quantite_produit.", prix=".$nouveau_prix." WHERE id_produit=".$row['id_produit'];
         $result3 = mysqli_query($connect, $sql3);
-        if($result3=true) {
-            $successMsg = "Produit modifié avec succès";
-        }
-        else {
-            $errorMsg[]="Erreur";
-        }*/
     }
 }
 ?>
