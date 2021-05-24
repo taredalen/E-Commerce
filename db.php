@@ -65,6 +65,8 @@ $sql6 = "CREATE TABLE if not exists Commande(
                          FOREIGN KEY(id_client) REFERENCES Client(id))";
 $resultat6 = mysqli_query($connect, $sql6); //Création des commandes
 
+//Création de 6 produits //
+
 $sql7 = "INSERT INTO Produits (id, refe,libelle,cat,marque,stock, prix_unitaire, TVA,descr ) VALUES (1,'603a6C0ea#abf','HP Pavilion x360 14-dy0008nf', 'PC', 'HP', 17, 899,20,'Le HP Pavilion x360 14 convertible s’adapte à tous vos besoins pour vous permettre d’être productif sous n’importe quel angle. Regardez vos séries préférées aussi longtemps que vous le souhaitez grâce à HP Fast Charge. Avec ses deux haut-parleurs dotés d’un système audio par B&O, cet ordinateur portable vous offre le son et l’expérience de divertissement immersifs que vous recherchez. Conçu avec le souci du respect de l’environnement, le HP Pavilion x360 est fabriqué à partir de plastiques océaniques, durables et recyclés post-consommation')";
 $resultat7 = mysqli_query($connect, $sql7); //creation d'un produit
 
@@ -82,6 +84,23 @@ $resultat11 = mysqli_query($connect, $sql11); //creation d'un produit
 
 $sql12= "INSERT INTO Produits (id, refe,libelle,cat,marque,stock, prix_unitaire, TVA,descr ) VALUES (6, '6000008377391','Tapis de souris Repose-poignet Noir', 'Autre', 'Boulanger', 0, 6,20,'Repose poignet en gel pour un confort d’utilisation personnalisé : soulage les tensions au niveau du poignet.Tissu Lycra.')";
 $resultat12 = mysqli_query($connect, $sql12); //creation d'un produit
+
+//Création d'un client//
+
+$sql13 = "INSERT INTO Client (id,nom,prenom,mail,numero,rue,ville,code,situation, naissance, sexe, password) VALUES (1,'Rodrigues','Camille','cam.6c@hotmail.fr','0651188857','5 Rue Raspail','Saint-Ouen','93400', 'Célibataire','1997-04-05', 'Femme','Camillou')";
+$resultat13 = mysqli_query($connect, $sql13);
+
+//Création d'un commentaire//
+
+$sql14= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire) VALUES (1, 'Rodrigues','Camille', 'cam.6c@hotmail.fr', 'Tres satisfaite , une livraison super rapide en 24h! Ecran magnifique sans aucun défaut , que vouloir de plus ? je continuerai à commander chez eux sans aucun doute.')";
+$resulta14 = mysqli_query($connect, $sql14);
+
+$sql14= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire) VALUES (2, 'Laporte','Jacky', 'jacky.Laporte@gmail.com', 'Tres bonne expérience me concernant. Bon produit et surtout livré en 24h, sans frais. Je recommanderai sans hésiter !')";
+$resulta14 = mysqli_query($connect, $sql14);
+
+$sql15= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire) VALUES (3, 'Bonin','Danielle', 'dani.bonin@free.com', 'Ca fait 3 mois, qu’ils sont en rupture de stocks de tapis de souris. Il ne faut pas être pressé avec eux!')";
+$resulta15 = mysqli_query($connect, $sql15);
+
 
 try {
     $db = new PDO("mysql:host={$db_host};dbname={$db_name}", $db_user, $db_password);
