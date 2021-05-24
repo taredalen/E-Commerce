@@ -29,13 +29,13 @@ $resultat12 = mysqli_query($connect, $sql12); //creation d'un produit
 
 //Création d'un commentaire//
 
-$sql14= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire) VALUES (1, 'Rodrigues','Camille', 'cam.6c@hotmail.fr', 'Tres satisfaite , une livraison super rapide en 24h! Ecran magnifique sans aucun défaut , que vouloir de plus ? je continuerai à commander chez eux sans aucun doute.')";
+$sql14= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire,reponse) VALUES (1, 'Rodrigues','Camille', 'cam.6c@hotmail.fr', 'Tres satisfaite , une livraison super rapide en 24h! Ecran magnifique sans aucun défaut , que vouloir de plus ? je continuerai à commander chez eux sans aucun doute.','')";
 $resulta14 = mysqli_query($connect, $sql14);
 
-$sql14= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire) VALUES (2, 'Laporte','Jacky', 'jacky.Laporte@gmail.com', 'Tres bonne expérience me concernant. Bon produit et surtout livré en 24h, sans frais. Je recommanderai sans hésiter !')";
+$sql14= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire,reponse) VALUES (2, 'Laporte','Jacky', 'jacky.Laporte@gmail.com', 'Tres bonne expérience me concernant. Bon produit et surtout livré en 24h, sans frais. Je recommanderai sans hésiter !','')";
 $resulta14 = mysqli_query($connect, $sql14);
 
-$sql15= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire) VALUES (3, 'Bonin','Danielle', 'dani.bonin@free.com', 'Ca fait 3 mois, qu’ils sont en rupture de stocks de tapis de souris. Il ne faut pas être pressé avec eux!')";
+$sql15= "INSERT INTO Commentaire (id,nom,prenom,mail, commentaire,reponse) VALUES (3, 'Bonin','Danielle', 'dani.bonin@free.com', 'Ca fait 3 mois, qu’ils sont en rupture de stocks de tapis de souris. Il ne faut pas être pressé avec eux!','')";
 $resulta15 = mysqli_query($connect, $sql15);
 
 try {
