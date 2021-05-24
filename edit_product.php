@@ -26,7 +26,7 @@ if(isset($_POST['update'])) {// when click on Update button
     $cat     = strip_tags($_POST['cat']);
     $marque  = strip_tags($_POST['marque']);
     $stock   = strip_tags($_POST['stock']);
-    $prix    = strip_tags($_POST['prix_unitaire']);
+    $prix    = strip_tags($_POST['prix']);
     $tva     = strip_tags($_POST['TVA']);
     $descr   = strip_tags($_POST['descr']);
 
@@ -74,7 +74,7 @@ if(isset($_POST['update'])) {// when click on Update button
 								<a class="nav-item-child" href="gestion_admin.php">Accueil</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-item-child active" href="gestion_produit.php">Géstion Produit</a>
+								<a class="nav-item-child active" href="gestion_produit.php">Gestion Produit</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-item-child" href="consulter_commentaires.php">Consultation Commentaires</a>
