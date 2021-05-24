@@ -173,6 +173,9 @@ if(isset($_POST['btn_save3'])) {
 								<li class="nav-item">
 									<a class="nav-item-child active" href="consulter_profil.php">Profil</a>
 								</li>
+                                <li class="nav-item">
+                                    <a class="nav-item-child active" href="consulter_panier.php">Panier</a>
+                                </li>
 								<li class="nav-item">
 									<a class="nav-item-child" href="deconnexion.php">Déconnexion
 									</a>

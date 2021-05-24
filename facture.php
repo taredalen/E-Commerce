@@ -99,21 +99,21 @@ $id = $_SESSION['user_login'];
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="nom" class="text-info" style="color: #19b9cc">Nom</label>
-                                <input type="text" class="form-control" id="nom" name="nom" minlength="3" value="<?php echo $data['nom']?>" disabled/>
+                                <input type="text" class="form-control" style="color: #c0c0c0" id="nom" name="nom" minlength="3" value="<?php echo $data['nom']?>" disabled/>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="prenom" class="text-info" style="color: #19b9cc">Prénom</label>
-                                <input type="text" class="form-control" id="prenom" name="prenom" minlength="3" value="<?php echo $data['prenom']?>" disabled/>
+                                <input type="text" class="form-control" style="color: #c0c0c0" id="prenom" name="prenom" minlength="3" value="<?php echo $data['prenom']?>" disabled/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="mail" class="text-info" style="color: #19b9cc">Mail</label>
-                                <input type="text" class="form-control" id="mail" name="mail" minlength="3" value="<?php echo $data['mail']?>" disabled/>
+                                <input type="text" class="form-control" style="color: #c0c0c0" id="mail" name="mail" minlength="3" value="<?php echo $data['mail']?>" disabled/>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="adresse" class="text-info" style="color: #19b9cc">Adresse</label>
-                                <input type="text" class="form-control" id="adresse" name="adresse" value="<?php echo $data['rue'].' '.$data['ville'].' '.$data['code']?>" disabled/>
+                                <input type="text" class="form-control" style="color: #c0c0c0" id="adresse" name="adresse" value="<?php echo $data['rue'].' '.$data['ville'].' '.$data['code']?>" disabled/>
                             </div>
                         </div>
                     </form>
