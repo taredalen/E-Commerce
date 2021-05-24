@@ -219,7 +219,7 @@ $successMsg = $_GET['successMsg'];
                         ?>
                             <form method="POST" action="ajout_panier.php?id=<?php echo $row['id']; ?>">
                                 <th class="text-center col-md-1">
-                                    <input type="text" class="form-control" id="quantite" name="quantite" placeholder="2"/>
+                                    <input type="number" class="form-control" id="quantite" name="quantite"/>
                                 </th>
                                 <th >
                                     <button type="submit" class="btn btn-info" name="commande">Commander</button>

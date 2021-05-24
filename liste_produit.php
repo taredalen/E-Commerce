@@ -67,6 +67,8 @@ require_once 'db.php';
 		</div>
 
 		<div class="col well">
+			<div style="align-content: center">
+
 			<h3 class="text-primary" style="color: #19b9cc" align="center">Consulter la liste des produits</h3>
 			<hr style="border-top:1px dotted #ccc;"/>
 
@@ -131,6 +133,8 @@ require_once 'db.php';
 				</tr>
 				</thead>
 				<tbody style="background-color:#ffffff;">
+				<br/><br/>
+
 
 				<?php
 				require_once 'connection.php';
@@ -189,6 +193,8 @@ require_once 'db.php';
 			<?php
 			//header("refresh:3; consulter_commentaires.php");
 			?>
+			</div>
+
 		</div>
 	</div>
 </div>
