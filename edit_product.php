@@ -26,11 +26,11 @@ if(isset($_POST['update'])) {// when click on Update button
     $cat     = strip_tags($_POST['cat']);
     $marque  = strip_tags($_POST['marque']);
     $stock   = strip_tags($_POST['stock']);
-    $prix    = strip_tags($_POST['prix']);
+    $prix    = strip_tags($_POST['prix_unitaire']);
     $tva     = strip_tags($_POST['TVA']);
     $descr   = strip_tags($_POST['descr']);
 
-    $result = mysqli_query($connect,"update Produits set libelle='$libelle', cat='$cat', marque='$marque', stock='$stock', prix='$prix', tva='$tva', descr='$descr' where id='$id'");
+    $result = mysqli_query($connect,"update Produits set libelle='$libelle', cat='$cat', marque='$marque', stock='$stock', prix_unitaire='$prix', tva='$tva', descr='$descr' where id='$id'");
     if($result=true) {
         $successMsg = "Produit modifié avec succès";
         //$redirects_to = end($previous);
