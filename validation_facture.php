@@ -18,14 +18,16 @@ if (isset($_POST['valid'])){
         $result = mysqli_stmt_get_result($stmt);
         $liste_prd="";
         while($row = mysqli_fetch_assoc($result)){
-            if($row["id_produit"]>1){
-                $liste_prd= $liste_prd.(string)$row['id_produit'].',';
+            $sql4 = "SELECT SUM(id_produit) FROM Panier_".$id_client;
+            $cmb = mysqli_query($connect, $sql4);
+            if($cmb>1){
+                $liste_prd= $liste_prd.','.(string)$row['id_produit'];
             }
             else{
                 $liste_prd= $liste_prd.(string)$row['id_produit'];
             }
         }
-        $liste_prd= $liste_prd.'0';
+        //$liste_prd= $liste_prd.'0';
         echo $liste_prd;
     }
     else{
