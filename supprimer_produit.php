@@ -11,6 +11,7 @@ if(isset($_POST['supprimer'])){
 	else{
 		for($i=0;$i<count($checkbox);$i++){
 			$del_id = $checkbox[$i];
+			echo $del_id;
 			$sql = "SELECT stock FROM Produits WHERE id='".$del_id."'";
 			$result = mysqli_query($connect, $sql);
 			if (mysqli_num_rows($result) > 0){
@@ -19,8 +20,8 @@ if(isset($_POST['supprimer'])){
 						$errorMsg[] ="Le stock de ce produit n'est pas nul. Il ne peut dont pas être supprimé.";
 					}
 					else{
-						$result = mysqli_query($connect,"DELETE FROM Produits WHERE id='".$del_id."'");
-						if($result=true) {
+						$result1 = mysqli_query($connect,"DELETE FROM Produits WHERE id='".$del_id."'");
+						if($result1=true) {
 							$successMsg = "Produits supprimés avec succès";
 						}
 						else {
@@ -162,7 +163,7 @@ if(isset($_POST['supprimer'])){
 							<td class="text-center"><?php echo $row['cat']?></td>
 							<td class="text-center"><?php echo $row['marque']?></td>
 							<td class="text-center"><?php echo $row['stock']?></td>
-							<td class="text-center"><?php echo $row['prix']?></td>
+							<td class="text-center"><?php echo $row['prix_unitaire']?></td>
 							<td class="text-center"><?php echo $row['TVA']?></td>
 							<td class="pt-3-half"><?php echo $row['descr']?></td>
 						</tr>
