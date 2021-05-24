@@ -52,6 +52,14 @@ if (isset($_POST['valid'])){
     $sql2 = "INSERT INTO Commande (id_client, liste_id_produits_cmd, date_commande, prix) VALUES ($id_client, '$liste_prd', CURRENT_DATE(), $prix_tot)";
     $stmt2 = mysqli_prepare($connect, $sql2);
     if($stmt2->execute()){
+        $sql4 = "SELECT quantite_produit, id_produit FROM Panier_".$id_client;
+        $result4 = mysqli_query($connect, $sql4);
+        $row1 = mysqli_fetch_assoc($result4);
+
+        $sql5 = "UPDATE Produits SET stock = stock-'{$row1['quantite_produit']}' WHERE id='{$row1['id_produit']}'";
+        $stmt5 = mysqli_prepare($connect, $sql5);
+        $stmt5->execute();
+
         $sql3 = "DROP TABLE Panier_".$id_client;
         $stmt3 = mysqli_query($connect, $sql3);
         $successMsg = "Votre commande a été validée avec succès";

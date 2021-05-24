@@ -9,7 +9,6 @@ $id_client = $_SESSION['user_login'];
 
 $errorMsg = $_GET['errorMsg'];
 $successMsg = $_GET['successMsg'];
-$new_qtn = 0;
 ?>
 
 <!DOCTYPE html>
@@ -130,7 +129,7 @@ $new_qtn = 0;
 						</div>
 						<div class="col-md-4" align="right">
 							<form method="POST" action="facture.php">
-								<select name="select_qtn<?php echo $row['id']?>" id="select_qtn<?php echo $row['id']?>" class="custom-select custom-select-sm" onchange="location.href='change_qtn_panier.php?qtn='+this.value">
+								<select name="select_qtn<?php echo $row['id']?>" id="select_qtn<?php echo $row['id']?>" class="custom-select custom-select-sm" onchange="location.href='change_qtn_panier.php?id_produit=<?php echo $row['id']?>&qtn='+this.value">
 									<option selected value="<?php echo $row['quantite_produit'] ?>"><?php echo $row['quantite_produit'] ?></option>
 									<?php
 									$stock = (int)$row['stock'];
