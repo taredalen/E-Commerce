@@ -129,11 +129,17 @@ $successMsg = $_GET['successMsg'];
                             </table>
                         </div>
                         <div class="col-md-4" align="right">
-                            <select class="custom-select custom-select-sm">
-                                <option selected><?php echo $row['quantite_produit'] ?></option>
-                                <option> 1 </option>
-                                <option> 2 </option>
-                            </select>
+                            <form method="POST" action="facture.php">
+                                <select name="select_qtn" id="select_qtn" class="custom-select custom-select-sm" >
+                                    <option selected value="<?php echo $row['quantite_produit'] ?>"><?php echo $row['quantite_produit'] ?></option>
+                                    <?php
+                                    $stock = (int)$row['stock'];
+                                    for($a=1; $a<=$stock;$a++){
+                                        echo "<option value=".$a."> ".$a." </option>";
+                                    }
+                                    ?>
+                                </select>
+                            </form>
                             <button name="supprimer" type="submit" class="btn btn-default" aria-label="Left Align" onclick="location.href='retirer_panier.php?id=<?php echo $row['id']; ?>'">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </button>
@@ -147,7 +153,7 @@ $successMsg = $_GET['successMsg'];
     </div>
     <!-- partie où le client doit valider le panier -->
     <div class="row" align="right">
-        <button type="submit" name="valider_btn" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='facture.php?id_client=<?php echo $id_client?>'"> Valider le panier </button>
+        <button type="submit" name="valider_btn" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='facture.php'"> Valider le panier </button>
     </div>
 </div>
 </div>

@@ -203,14 +203,31 @@ $successMsg = $_GET['successMsg'];
                         <td class="text-center"><?php echo $row['prix_unitaire']?></td>
                         <td class="text-center"><?php echo $row['TVA']?></td>
                         <td class="pt-3-half"><?php echo $row['descr']?></td>
-                        <form method="POST" action="ajout_panier.php?id=<?php echo $row['id']; ?>">
+
+                        <?php
+                        if($row['stock']==0){
+                            ?>
                             <th class="text-center col-md-1">
-                                <input type="text" class="form-control" id="quantite" name="quantite" placeholder="2"/>
+                                <input type="text" class="form-control" id="quantite" name="quantite" placeholder="2" disabled/>
                             </th>
                             <th >
-                                <button type="submit" class="btn btn-info" name="commande">Commander</button>
+                                <button type="submit" class="btn btn-info" name="commande" disabled>Commander</button>
                             </th>
-                        </form>
+                            <?php
+                        }
+                        else{
+                        ?>
+                            <form method="POST" action="ajout_panier.php?id=<?php echo $row['id']; ?>">
+                                <th class="text-center col-md-1">
+                                    <input type="text" class="form-control" id="quantite" name="quantite" placeholder="2"/>
+                                </th>
+                                <th >
+                                    <button type="submit" class="btn btn-info" name="commande">Commander</button>
+                                </th>
+                            </form>
+                            <?php
+                        }
+                        ?>
                     </tr>
                     <?php
                 }

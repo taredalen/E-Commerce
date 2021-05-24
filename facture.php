@@ -9,6 +9,11 @@ if(!isset($_SESSION['user_login'])) {
 
 $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 $id = $_SESSION['user_login'];
+
+$quantite_produit = $_POST['select_qtn'];
+$sql2 = "UPDATE Panier_".$id." SET quantite_produit='$quantite_produit'";
+$result2 = mysqli_query($connect, $sql2);
+
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +74,7 @@ $id = $_SESSION['user_login'];
 <div class="section-seperator">
     <div class="content-md container">
         <div class="col well">
-            <h3 class="text-primary" style="color: #19b9cc" align="center">Modifier un produit</h3>
+            <h3 class="text-primary" style="color: #19b9cc" align="center">Facture</h3>
             <hr style="border-top:1px dotted #ccc;"/>
             <div style="align-content: center">
                 <?php
@@ -119,38 +124,55 @@ $id = $_SESSION['user_login'];
                     </form>
                     <?php
                 }
-
-                $sql1 = "SELECT * FROM Commande WHERE id_client='".$id."'";
-                $result1 = mysqli_query($connect, $sql1);
-
-                while ($data = mysqli_fetch_assoc($result1)){
-                    ?>
-                    <form method="POST">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="nom" class="text-info" style="color: #19b9cc">Nom</label>
-                                <input type="text" class="form-control" id="nom" name="nom" minlength="3" value="<?php echo $data['nom']?>" disabled/>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="prenom" class="text-info" style="color: #19b9cc">Prénom</label>
-                                <input type="text" class="form-control" id="prenom" name="prenom" minlength="3" value="<?php echo $data['prenom']?>" disabled/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="mail" class="text-info" style="color: #19b9cc">Mail</label>
-                                <input type="text" class="form-control" id="mail" name="mail" minlength="3" value="<?php echo $data['mail']?>" disabled/>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="adresse" class="text-info" style="color: #19b9cc">Adresse</label>
-                                <input type="text" class="form-control" id="adresse" name="adresse" value="<?php echo $data['rue'].' '.$data['ville'].' '.$data['code']?>" disabled/>
-                            </div>
-                        </div>
-                    </form>
-                    <?php
-                }
                 ?>
-                <form method="post" action="validation_facture.php?id_client=<?php echo $id?>">
+                <br/> <br/> <br/>
+                <div class="row">
+                    <h4 align="center"> Produit(s) commandé(s) <?php echo $quantite_produit?></h4>
+                    <br/>
+                    <!-- liste des articles du panier -->
+                    <ul style="list-style:none">
+                    <?php
+                    $sql1 = "SELECT P.*, Pa.quantite_produit, Pa.prix FROM Panier_".$id." AS Pa
+                             JOIN Produits P ON P.id = Pa.id_produit
+                             WHERE Pa.id_client=".$id;
+                    $result1 = mysqli_query($connect, $sql1);
+
+                    while ($row = mysqli_fetch_assoc($result1)){
+                    ?>
+                        <!-- 1 article du panier -->
+                        <li class="">
+                            <div class="row">
+                                <div class="col-md-6" align="left">
+                                    <h3> <?php echo $row['libelle'] ?> </h3>
+                                    <span> <?php echo $row['refe'] ?> </span> <br/>
+                                    <span> <?php echo $row['prix_unitaire'] ?>€ </span>
+                                </div>
+                                <div class="col-md-6" align="center">
+                                    <table style="border: none; column-width: max-content">
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-left"><span> Catégorie : </span></td>
+                                            <td class="text-left"><span>  <?php echo $row['cat'] ?> </span></td>
+                                            <td class="text-left"><span> Marque : </span></td>
+                                            <td class="text-left"><span> <?php echo $row['marque'] ?> </span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left"><span> Quantite : </span></td>
+                                            <td class="text-left"><span> <?php echo $row['quantite_produit'] ?> </span></td>
+                                            <td class="text-left"><span> Prix : </span></td>
+                                            <td class="text-left"><span> <?php echo $row['prix'] ?>€ </span></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                    <?php
+                    }
+                    ?>
+                    </ul>
+                </div>
+                <form method="post" action="validation_facture.php?id_client=<?php echo $id?>" align="center">
                     <button type="submit" name="back" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Retour</button>
                     <button type="submit" name="valid" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Valider</button>
                 </form>
