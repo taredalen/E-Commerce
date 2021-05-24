@@ -18,7 +18,7 @@ if(isset($_REQUEST['btn_add'])) {
 	$tva		    = strip_tags($_REQUEST['TVA']);
 	$descr	        = strip_tags($_REQUEST['descr']);
 
-	$file = $_FILES['file'];
+	/*$file = $_FILES['file'];
 
 	$fileName = $_FILES['file']['name'];
 	$fileTmpName = $_FILES['file']['tmp_name'];
@@ -36,7 +36,8 @@ if(isset($_REQUEST['btn_add'])) {
 	}
 	if(!in_array($fileActualExt,$allowed)){
 		$errorMsg[] = "Veuillez choisir le fichier de type .jpg, .jpeg, .png ou .pdf";
-	}
+	}*/
+
 	if(empty($libelle)){
 		$errorMsg[] = "Veuillez entrer le libellé du produit";
 	}
@@ -60,16 +61,16 @@ if(isset($_REQUEST['btn_add'])) {
 
 		//move_uploaded_file($fileTmpName,$fileDestination);
 
-		//$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
-
-		$sql = "INSERT INTO Produits (refe, libelle, cat, marque, stock, prix, tva, descr) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
+		$sql = "INSERT INTO Produits (refe, libelle, cat, marque, stock, prix_unitaire, TVA, descr) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = mysqli_prepare($connect,$sql);
-		$refe = uniqid($refe);
+        $refe = uniqid($refe);
+        mysqli_stmt_bind_param($stmt, "ssssidis",$refe, $libelle, $cat, $marque, $stock, $prix, $tva, $descr);
 		if($stmt->execute()) {
 			$successMsg = "Produit ajouté avec succès";
 		}
 		else {
-			$errorMsg[]="Erreur";
+			$errorMsg[]=mysqli_stmt_error($stmt);
 		}
 	}
 }
