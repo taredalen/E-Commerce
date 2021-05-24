@@ -5,7 +5,6 @@ if(!isset($_SESSION['user_login'])) {
 }
 
 $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
-$id = $_GET['id']; // get id produit
 $id_client = $_SESSION['user_login'];
 
 $errorMsg = $_GET['errorMsg'];
@@ -108,7 +107,7 @@ $successMsg = $_GET['successMsg'];
                     <div class="row">
                         <div class="col-md-4" align="left">
                             <h3> <?php echo $row['libelle'] ?> </h3>
-                            <h5 class="text-info"> <?php echo $row['prix_unitaire'] ?> </h5>
+                            <h5 class="text-info"> <?php echo $row['prix_unitaire'] ?>€ </h5>
                         </div>
                         <div class="col-md-4" align="center">
                             <table style="border: none; column-width: max-content">
@@ -123,14 +122,14 @@ $successMsg = $_GET['successMsg'];
                                     <td class="text-left"><span> Marque : </span></td>
                                     <td class="text-left"><span> <?php echo $row['marque'] ?> </span></td>
                                     <td class="text-left"><span> Prix : </span></td>
-                                    <td class="text-left"><span> <?php echo $row['prix'] ?> </span></td>
+                                    <td class="text-left"><span> <?php echo $row['prix'] ?>€ </span></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="col-md-4" align="right">
                             <form method="POST" action="facture.php">
-                                <select name="select_qtn" id="select_qtn" class="custom-select custom-select-sm" >
+                                <select name="select_qtn<?php echo $row['id']?>" id="select_qtn<?php echo $row['id']?>" class="custom-select custom-select-sm">
                                     <option selected value="<?php echo $row['quantite_produit'] ?>"><?php echo $row['quantite_produit'] ?></option>
                                     <?php
                                     $stock = (int)$row['stock'];
