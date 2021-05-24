@@ -64,20 +64,28 @@ while ($row = mysqli_fetch_assoc($result)){
             while($row1 = mysqli_fetch_assoc($result2)){
                 if($row1['id_produit']==$id){
                     $qtn = $_POST['quantite'];
-                    $nvl_qtn = $_POST['quantite']+$row1['quantite_produit'];
-                    $nouveau_prix = $nvl_qtn*$row['prix_unitaire'];
-                    $sql3 = "UPDATE Panier_".$id_client." SET quantite_produit=".$nvl_qtn.", prix=".$nouveau_prix." WHERE id_produit=".$id;
-                    $stmt3 = mysqli_prepare($connect, $sql3);
-                    if ($stmt3->execute()) {
+                    if($qtn+$row1['quantite_produit']>$stock){
                         mysqli_close($connect); // Close connection
-                        $successMsg = "Produit ajouté au panier avec succès";
-                        header("location:gestion_commande.php?successMsg=$successMsg"); // redirects to liste_produit page
+                        $errorMsg="Veuillez entrer une quantité du produit inférieur au stock disponible. Votre panier contient déjà ".$row1['quantite_produit']." fois cet article.";
+                        header("location:gestion_commande.php?errorMsg=$errorMsg");
                         exit;
-                    } else {
-                        mysqli_close($connect); // Close connection
-                        $errorMsg = mysqli_stmt_error($stmt3);
-                        header("location:gestion_commande.php?errorMsg=$errorMsg"); // redirects to liste_produit page
-                        exit;
+                    }
+                    else{
+                        $nvl_qtn = $_POST['quantite']+$row1['quantite_produit'];
+                        $nouveau_prix = $nvl_qtn*$row['prix_unitaire'];
+                        $sql3 = "UPDATE Panier_".$id_client." SET quantite_produit=".$nvl_qtn.", prix=".$nouveau_prix." WHERE id_produit=".$id;
+                        $stmt3 = mysqli_prepare($connect, $sql3);
+                        if ($stmt3->execute()) {
+                            mysqli_close($connect); // Close connection
+                            $successMsg = "Produit ajouté au panier avec succès";
+                            header("location:gestion_commande.php?successMsg=$successMsg"); // redirects to liste_produit page
+                            exit;
+                        } else {
+                            mysqli_close($connect); // Close connection
+                            $errorMsg = mysqli_stmt_error($stmt3);
+                            header("location:gestion_commande.php?errorMsg=$errorMsg"); // redirects to liste_produit page
+                            exit;
+                        }
                     }
                 }
                 else{

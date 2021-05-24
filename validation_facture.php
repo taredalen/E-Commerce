@@ -24,7 +24,7 @@ if (isset($_POST['valid'])){
                 $liste_prd= $liste_prd.','.(string)$row['id_produit'];
             }
             else{
-                $liste_prd= $liste_prd.(string)$row['id_produit'];
+                $liste_prd= $liste_prd.','.(string)$row['id_produit'];
             }
         }
         //$liste_prd= $liste_prd.'0';
