@@ -174,7 +174,7 @@ require_once 'db.php';
 						<td class="text-center"><?php echo $row['cat']?></td>
 						<td class="text-center"><?php echo $row['marque']?></td>
 						<td class="text-center"><?php echo $row['stock']?></td>
-						<td class="text-center"><?php echo $row['prix']?></td>
+						<td class="text-center"><?php echo $row['prix_unitaire']?></td>
 						<td class="text-center"><?php echo $row['TVA']?></td>
 						<td class="pt-3-half"><?php echo $row['descr']?></td>
 						<th class="text-center col-md-1">
