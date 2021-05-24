@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-header("location:index.php");
+header("location:accueil.php");
 
 if(isset($_COOKIE['id'])){
     setcookie("id", $_SESSION['id'], time()-3600*24*5);

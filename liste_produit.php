@@ -144,7 +144,6 @@ $successMsg = $_GET['successMsg'];
 				$connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 
 				if(ISSET($_POST['recherche'])){
-					echo "dfcvd";
 					$categorie = $_POST['cat'];
 					$marque = $_POST['marque'];
 					if($categorie!='Tout' && $marque!='Tout'){

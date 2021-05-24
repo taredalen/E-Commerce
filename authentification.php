@@ -118,7 +118,7 @@ if(isset($_REQUEST['btn_login'])) {
 					<div class="menu-container">
 						<ul class="navbar-nav navbar-nav-right">
 							<li class="nav-item">
-								<a class="nav-item-child" href="index.php">
+								<a class="nav-item-child" href="accueil.php">
 									Accueil
 								</a>
 							</li>

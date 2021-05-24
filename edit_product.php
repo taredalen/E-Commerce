@@ -5,7 +5,7 @@ require_once 'db.php';
 session_start();
 
 if(!isset($_COOKIE['id'])) {
-    header("location: index.php");
+    header("location: accueil.php");
 }
 
 $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
