@@ -130,7 +130,7 @@ $new_qtn = 0;
 						</div>
 						<div class="col-md-4" align="right">
 							<form method="POST" action="facture.php">
-								<select name="select_qtn<?php echo $row['id']?>" id="select_qtn<?php echo $row['id']?>" class="custom-select custom-select-sm">
+								<select name="select_qtn<?php echo $row['id']?>" id="select_qtn<?php echo $row['id']?>" class="custom-select custom-select-sm" onchange="location.href='change_qtn_panier.php?qtn='+this.value">
 									<option selected value="<?php echo $row['quantite_produit'] ?>"><?php echo $row['quantite_produit'] ?></option>
 									<?php
 									$stock = (int)$row['stock'];
@@ -142,6 +142,7 @@ $new_qtn = 0;
 								<button name="supprimer" type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='retirer_panier.php?id=<?php echo $row['id']; ?>'">
 									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 								</button>
+                            </form>
 						</div>
 					</div>
 				</li>
@@ -152,9 +153,8 @@ $new_qtn = 0;
 	</div>
 	<!-- partie où le client doit valider le panier -->
 	<div class="row" align="right">
-		<button type="submit" name="valider_btn" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='facture.php"> Valider le panier </button>
+		<button type="submit" name="valider_btn" class="btn-theme btn-theme-sm btn-base-bg text-uppercase" onclick="location.href='facture.php'"> Valider le panier </button>
 	</div>
-	</form>
 </div>
 </div>
 <!-- ======== FIN PAGE ======== -->
