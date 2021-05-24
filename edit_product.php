@@ -141,7 +141,7 @@ if(isset($_POST['update'])) {// when click on Update button
                             <td class="text-center"><?php echo $data['cat']?></td>
                             <td class="text-center"><?php echo $data['marque']?></td>
                             <td class="text-center"><?php echo $data['stock']?></td>
-                            <td class="text-center"><?php echo $data['prix']?></td>
+                            <td class="text-center"><?php echo $data['prix_unitaire']?></td>
                             <td class="text-center"><?php echo $data['TVA']?></td>
                             <td class="pt-3-half"><?php echo $data['descr']?></td>
                         </tr>
@@ -183,7 +183,7 @@ if(isset($_POST['update'])) {// when click on Update button
                         </div>
 	                    <div class="form-group col-md-4">
 		                    <label for="prix" class="text-info" style="color: #19b9cc">Prix unitaire</label>
-		                    <input type="number" class="form-control" id="prix" name="prix" value="<?php echo $data['prix']?>"/>
+		                    <input type="number" class="form-control" id="prix" name="prix" value="<?php echo $data['prix_unitaire']?>"/>
 	                    </div>
 	                    <div class="form-group col-md-4">
 		                    <label for="TVA" class="text-info" style="color: #19b9cc">TVA</label>

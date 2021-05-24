@@ -165,7 +165,7 @@ $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 							<td class="text-center"><?php echo $row['cat']?></td>
 							<td class="text-center"><?php echo $row['marque']?></td>
 							<td class="text-center"><?php echo $row['stock']?></td>
-							<td class="text-center"><?php echo $row['prix']?></td>
+							<td class="text-center"><?php echo $row['prix_unitaire']?></td>
 							<td class="text-center"><?php echo $row['TVA']?></td>
 							<td class="pt-3-half"><?php echo $row['descr']?></td>
 						</tr>
