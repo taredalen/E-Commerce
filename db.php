@@ -87,8 +87,10 @@ $resultat12 = mysqli_query($connect, $sql12); //creation d'un produit
 
 //Création d'un client//
 
-$sql13 = "INSERT INTO Client (id,nom,prenom,mail,numero,rue,ville,code,situation, naissance, sexe, password) VALUES (1,'Rodrigues','Camille','cam.6c@hotmail.fr','0651188857','5 Rue Raspail','Saint-Ouen','93400', 'Célibataire','1997-04-05', 'Femme','Camillou')";
-$resultat13 = mysqli_query($connect, $sql13);
+//$new_password = password_hash('Camillou', PASSWORD_DEFAULT); //encrypt password using password_hash()
+
+//$sql13 = "INSERT INTO Client (id,nom,prenom,mail,numero,rue,ville,code,situation, naissance, sexe, password) VALUES (1,'Rodrigues','Camille','cam.6c@hotmail.fr','0651188857','5 Rue Raspail','Saint-Ouen','93400', 'Célibataire','1997-04-05', 'Femme',password_hash('Camillou', PASSWORD_DEFAULT))";
+//$resultat13 = mysqli_query($connect, $sql13);
 
 //Création d'un commentaire//
 
@@ -105,6 +107,11 @@ $resulta15 = mysqli_query($connect, $sql15);
 try {
     $db = new PDO("mysql:host={$db_host};dbname={$db_name}", $db_user, $db_password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+	$password1 = password_hash('Camillou', PASSWORD_DEFAULT); //encrypt password using password_hash()
+
+	$insert_stmt=$db->prepare("INSERT INTO Client(id, nom, prenom, mail, numero, rue, ville, code, situation, naissance, sexe, password) VALUES(:id,:nom,:prenom,:mail,:numero,:rue,:ville,:code,:situation,:naissance,:sexe,:password)");		//sql insert query
+	$insert_stmt->execute(array(':id'=>1,':nom'	=>'Rodrigues', ':prenom'=>'Camille', ':mail'=>'cam.6c@hotmail.fr', ':numero' =>'0651188857', ':rue' =>'5 Rue Raspail', ':ville'	=>'Saint-Ouen', ':code'=>'93400', ':situation'=>'Célibataire', ':naissance'=>'1997-04-05', ':sexe' 	=>'Femme', ':password' =>$password1));
 }
 catch (PDOEXCEPTION $e) {
 }
