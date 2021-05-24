@@ -2,7 +2,7 @@
 <html  lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<title>Authentification</title>
+	<title>Accueil</title>
 	<link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
@@ -24,7 +24,7 @@
 							<a class="nav-item-child active" href="gestion_client.php">Accueil</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-item-child" href="gestion_commande.php">Commande</a>
+							<a class="nav-item-child" href="gestion_commande.php">Commander</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-item-child" href="ajouter_commentaire.php">Commentaires</a>

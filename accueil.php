@@ -32,7 +32,7 @@ if(isset($_COOKIE['id'])){
         <div class="container">
             <div class="menu-container">
                 <div class="navbar-logo">
-                    <a class="navbar-logo-wrap" href="index.php">
+                    <a class="navbar-logo-wrap" href="accueil.php">
                         <img class="navbar-logo-img" src="img/logo_grey.png" alt="PH">
                     </a>
                 </div>
@@ -40,7 +40,7 @@ if(isset($_COOKIE['id'])){
             <div class="collapse navbar-collapse nav-collapse">
                 <div class="menu-container">
                     <ul class="navbar-nav navbar-nav-right">
-                        <li class="nav-item"><a class="nav-item-child active" href="index.php">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-item-child active" href="accueil.php">Accueil</a></li>
                         <li class="nav-item"><a class="nav-item-child" href="authentification.php">Authentification</a></li>
                     </ul>
                 </div>

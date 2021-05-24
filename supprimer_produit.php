@@ -39,6 +39,7 @@ if(isset($_POST['supprimer'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Supprimer des produits</title>
 	<link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="bootstrap/css/bootstrap-table.css" rel="stylesheet" type="text/css"/>

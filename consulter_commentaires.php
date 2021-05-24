@@ -32,6 +32,7 @@ if(isset($_REQUEST['delete'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Commentaires</title>
 	<link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="bootstrap/css/bootstrap-table.css" rel="stylesheet" type="text/css"/>
@@ -58,7 +59,7 @@ if(isset($_REQUEST['delete'])) {
 							<a class="nav-item-child" href="gestion_admin.php">Accueil</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-item-child"  href="gestion_produit.php">Géstion Produit</a>
+							<a class="nav-item-child" href="gestion_produit.php">Gestion Produit</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-item-child active" href="consulter_commentaires.php">Consultation Commentaires</a>

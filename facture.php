@@ -15,7 +15,7 @@ $id = $_SESSION['user_login'];
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Ajout d'un produit</title>
+    <title>Facture</title>
     <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
@@ -45,13 +45,13 @@ $id = $_SESSION['user_login'];
                                 <a class="nav-item-child" href="gestion_commande.php">Commande</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-item-child active" href="ajouter_commentaire.php">Commentaires</a>
+                                <a class="nav-item-child" href="ajouter_commentaire.php">Commentaires</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-item-child" href="consulter_profil.php">Profil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-item-child" href="consulter_panier.php">Panier</a>
+                                <a class="nav-item-child active" href="consulter_panier.php">Panier</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-item-child" href="deconnexion.php">Déconnexion</a>

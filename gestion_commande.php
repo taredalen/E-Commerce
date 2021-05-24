@@ -12,6 +12,7 @@ $successMsg = $_GET['successMsg'];
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Commander</title>
     <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="bootstrap/css/bootstrap-table.css" rel="stylesheet" type="text/css"/>
@@ -38,7 +39,7 @@ $successMsg = $_GET['successMsg'];
                                 <a class="nav-item-child" href="gestion_client.php">Accueil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-item-child active" href="gestion_commande.php">Commande</a>
+                                <a class="nav-item-child active" href="gestion_commande.php">Commander</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-item-child" href="ajouter_commentaire.php">Commentaires</a>

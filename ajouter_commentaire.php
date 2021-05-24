@@ -80,7 +80,7 @@ if(isset($_REQUEST['btn'])) {
 							<a class="nav-item-child" href="gestion_client.php">Accueil</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-item-child" href="gestion_commande.php">Commande</a>
+							<a class="nav-item-child" href="gestion_commande.php">Commander</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-item-child active" href="ajouter_commentaire.php">Commentaires</a>

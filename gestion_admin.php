@@ -16,7 +16,7 @@ $row = $result->fetch_assoc();
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<title>Authentification</title>
+	<title>Accueil</title>
 	<link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
@@ -38,7 +38,7 @@ $row = $result->fetch_assoc();
 							<a class="nav-item-child active" href="gestion_admin.php">Accueil</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-item-child" href="gestion_produit.php">Géstion Produit</a>
+							<a class="nav-item-child" href="gestion_produit.php">Gestion Produit</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-item-child" href="consulter_commentaires.php">Consultation Commentaires</a>

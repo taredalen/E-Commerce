@@ -103,7 +103,7 @@ if(isset($_REQUEST['btn_register'])) //button name "btn_register"
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Authentification</title>
+    <title>Inscription</title>
     <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
