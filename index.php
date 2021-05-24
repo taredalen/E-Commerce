@@ -1,4 +1,7 @@
 <?php
+require_once 'db.php';
+require_once 'connection.php';
+
 $db_host = "localhost";
 $db_user = "root";
 $db_password = "";
