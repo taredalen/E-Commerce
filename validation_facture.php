@@ -7,7 +7,7 @@ $connect = mysqli_connect("localhost", "root", "", "ProjectPHP");
 $id_client = $_GET['id_client'];
 
 if (isset($_POST['back'])) {
-    header("Location: gestion_produit.php");
+    header("Location: consulter_panier.php");
 }
 
 if (isset($_POST['valid'])){
@@ -25,6 +25,7 @@ if (isset($_POST['valid'])){
                 $liste_prd= $liste_prd.(string)$row['id_produit'];
             }
         }
+        $liste_prd= $liste_prd.'0';
         echo $liste_prd;
     }
     else{

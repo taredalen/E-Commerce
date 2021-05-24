@@ -35,14 +35,21 @@ while ($row = mysqli_fetch_assoc($result)){
 
     elseif($_POST['quantite']==0){
         mysqli_close($connect); // Close connection
-        $errorMsg="Veuillez entrer une quantité du produit valide 2";
+        $errorMsg="Veuillez entrer une quantité du produit valide";
         header("location:gestion_commande.php?errorMsg=$errorMsg"); // redirects to liste_produit page
         exit;
     }
 
     elseif(empty($_POST['quantite'])){
         mysqli_close($connect); // Close connection
-        $errorMsg="Veuillez entrer une quantité du produit valide 1";
+        $errorMsg="Veuillez entrer une quantité du produit valide";
+        header("location:gestion_commande.php?errorMsg=$errorMsg"); // redirects to liste_produit page
+        exit;
+    }
+
+    elseif($_POST['quantite']<0){
+        mysqli_close($connect); // Close connection
+        $errorMsg="Veuillez entrer une quantité du produit supérieur à 0";
         header("location:gestion_commande.php?errorMsg=$errorMsg"); // redirects to liste_produit page
         exit;
     }
