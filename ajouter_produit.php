@@ -192,7 +192,7 @@ if(isset($_REQUEST['btn_add'])) {
 							<select class="form-control" name="marque" id="marque">
 								<option value="Autre">Autre</option>
 								<option value="HP">HP</option>
-								<option value="cannon">Cannon</option>
+								<option value="cannon">Canon</option>
 								<option value="boulanger">Boulanger</option>
 							</select>
 						</div>
