@@ -1,2 +1,2 @@
 # E-Commerce 
-PHP Project, not for fun 
+PHP Project
